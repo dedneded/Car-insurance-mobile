@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="car_insurance_mob.Views.ClientDetailsPage"
+             BindingContext="{Binding ClientDetailsViewModel,Source={StaticResource CompositionRoot}}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Удалить" />
+        
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="20" Spacing="8" >
+            
+            <Grid VerticalOptions="FillAndExpand">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand">
+                    <Label Text="Личная информация" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,5,0,15" />
+
+                    <StackLayout Orientation="Horizontal"  Margin="0,5">
+                        <Label Text="Id:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal"  Margin="0,5">
+                        <Label Text="ФИО:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="Иванов Иван Иванович" FontSize="16" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"  Margin="0,5">
+                        <Label Text="Телефон:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="{Binding Phone}" FontSize="16" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"  Margin="0,5">
+                        <Label Text="Почта:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="{Binding Email}" FontSize="16" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <RelativeLayout Margin="0,5">
+                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" HorizontalOptions="CenterAndExpand"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-105}" />
+                    </RelativeLayout>
+
+                </StackLayout>
+
+                <StackLayout Grid.Row="1" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Паспорта" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Вод. удостоверения" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Автомобили" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

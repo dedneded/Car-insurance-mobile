@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:car_insurance_mob="clr-namespace:car_insurance_mob"
+             x:Class="car_insurance_mob.App">
+    <Application.Resources>
+        <car_insurance_mob:CompositionRoot x:Key="CompositionRoot"/>
+    </Application.Resources>
+</Application>
