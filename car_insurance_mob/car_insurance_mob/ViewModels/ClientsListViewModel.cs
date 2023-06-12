@@ -56,7 +56,6 @@ namespace car_insurance_mob.ViewModels
                 IsFilterVisible = true;
             }
 
-           // After adding new entry to database close this page
            //await Application.Current.MainPage.Navigation.PopAsync();
         }
     }
