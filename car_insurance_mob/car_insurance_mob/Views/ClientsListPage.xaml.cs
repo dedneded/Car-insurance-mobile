@@ -22,8 +22,10 @@ namespace car_insurance_mob.Views
             if (e.Item != null)
             {
                 var client = (Client)e.Item;
-                await Navigation.PushAsync(new ClientDetailsPage(new Guid("a2273733-98bd-4195-945f-e532948ff1ef")));
+
+                await Navigation.PushAsync(new ClientDetailsPage(client.Id));
             }
         }
+       
     }
 }

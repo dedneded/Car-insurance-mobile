@@ -9,7 +9,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Margin="20" Spacing="8" >
-            
+
             <Grid VerticalOptions="FillAndExpand">
 
                 <Grid.RowDefinitions>
@@ -24,7 +24,7 @@
 
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
                         <Label Text="Id:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-                        <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center" />
+                        <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center"/>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
@@ -33,7 +33,7 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
                         <Label Text="Телефон:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-                        <Label Text="{Binding Phone}" FontSize="16" VerticalTextAlignment="Center" />
+                        <Label Text="{Binding Phone, Mode=OneWay}" FontSize="16" VerticalTextAlignment="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
                         <Label Text="Почта:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>

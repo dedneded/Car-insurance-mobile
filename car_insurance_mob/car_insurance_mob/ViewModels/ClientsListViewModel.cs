@@ -40,7 +40,7 @@ namespace car_insurance_mob.ViewModels
             _clientservice = clientservice;
             List <Client> clients = _clientservice.GetAllClients();
             AllClients = new ObservableCollection<Client>(clients);
-            IsFilterVisible = true;
+            
             ApplyFiltersCommand = new Command(ApplyFilters);
 
         }
@@ -56,7 +56,6 @@ namespace car_insurance_mob.ViewModels
                 IsFilterVisible = true;
             }
 
-           //await Application.Current.MainPage.Navigation.PopAsync();
         }
     }
 }

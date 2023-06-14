@@ -6,7 +6,7 @@ using System.Text;
 
 namespace car_insurance_mob.ViewModels
 {
-    public  class BaseViewModel
+    public  class BaseViewModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>

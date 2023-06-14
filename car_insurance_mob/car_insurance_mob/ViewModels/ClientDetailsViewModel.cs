@@ -5,13 +5,15 @@ using System.Net;
 using System.Text;
 using Xamarin.Forms;
 using car_insurance_mob.Models;
+using System.Threading;
 
 namespace car_insurance_mob.ViewModels
 {
     internal class ClientDetailsViewModel : BaseViewModel
     {
+        
         private ClientService _clientservice;
-        private Guid _clientId;
+        public Guid clientId;
         private Guid id;
         public Guid Id
         {
@@ -43,14 +45,22 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ClientDetailsViewModel(ClientService clientservice, Guid clientId=new Guid())
+        public void FillInfo(Guid clientid)
+        {
+
+            Client client = _clientservice.GetClient(clientid);
+            Email = client.Email;
+            Phone = client.Phone;
+            Id = clientid;
+
+        }
+
+
+        public ClientDetailsViewModel(ClientService clientservice)
         {
             _clientservice = clientservice;
-            _clientId = clientId;
-            Client client = _clientservice.GetClient(clientId);
-            Id = client.Id;
-            Phone = client.Phone;
-            Email = client.Email;
+
         }
+       
     }
 }

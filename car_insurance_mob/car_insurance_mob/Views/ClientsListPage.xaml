@@ -11,19 +11,20 @@
                     <Entry Placeholder="ФИО" x:Name="fullNameEntry"/>
                     <Entry Placeholder="Телефон" x:Name="phoneEntry"/>
                     <Entry Placeholder="Почта" x:Name="emailEntry"/>
-                </StackLayout>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" />
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
-                </Grid>
+                        <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" />
+                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                    </Grid>
+                </StackLayout>
+                
                 
                 
             </StackLayout>

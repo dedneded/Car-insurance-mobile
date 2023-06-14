@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using car_insurance_mob.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using car_insurance_mob.Services;
+using car_insurance_mob.Models;
 
 namespace car_insurance_mob.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClientDetailsPage : ContentPage
     {
-        private Guid clientId;
         public ClientDetailsPage(Guid clientId)
         {
+            
+
+
             InitializeComponent();
-            this.clientId = clientId;
+           
+            //BindingContext = "{Binding ClientDetailsViewModel,Source={StaticResource CompositionRoot}}"
         }
+
+        
     }
 }

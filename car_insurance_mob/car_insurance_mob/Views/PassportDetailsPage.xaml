@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="car_insurance_mob.Views.PassportDetailsPage"
+             BindingContext="{Binding PassportDetailsViewModel,Source={StaticResource CompositionRoot}}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Удалить" />
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="20" Spacing="8" >
+
+            <Grid VerticalOptions="FillAndExpand">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <ScrollView Grid.Row="0">
+                    <StackLayout  Spacing="8">
+                        <Label Text="Актуальный паспорт" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,5,0,15" />
+
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Id:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Серия:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Series}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Номер:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Number}" FontSize="16" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="ФИО:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding FIO}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Пол:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Sex}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Кем выдан:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Issued_By_Whom}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Код подразделения:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding DivisionCode}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Дата выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding DateOfIssue}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Дата рождения" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding DateOfBirth}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Место рождения" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding PlaceOfBirth}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Адрес прописки" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding ResidenceAddress}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <RelativeLayout Margin="0,5">
+                            <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" HorizontalOptions="CenterAndExpand"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-120}" />
+                        </RelativeLayout>
+
+                    </StackLayout>
+                </ScrollView>
+                
+
+                <StackLayout Grid.Row="1" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Добавить паспорт" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+
+                <StackLayout Grid.Row="3" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Все паспорта" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

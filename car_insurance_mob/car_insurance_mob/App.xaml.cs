@@ -11,7 +11,8 @@ namespace car_insurance_mob
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new ClientsListPage());
+            MainPage = new NavigationPage(new PassportsListPage());
+
         }
 
         protected override void OnStart()
