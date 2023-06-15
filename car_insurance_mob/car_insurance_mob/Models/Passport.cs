@@ -14,7 +14,7 @@ namespace car_insurance_mob.Models
         public string Number { get; set; }
 
         public string FIO { get; set; }
-        public bool Sex { get; set; }
+        public bool IsMale { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PlaceOfBirth { get; set; }
         public string ResidenceAddress { get; set; }
@@ -35,6 +35,10 @@ namespace car_insurance_mob.Models
 
 
 
+        }
+        public Passport()
+        {
+            
         }
     }
 }

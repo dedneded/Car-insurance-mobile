@@ -30,5 +30,9 @@ namespace car_insurance_mob.Services
         {
             return passports;
         }
+        public bool AddPassport(Passport passport)
+        {
+            return true;
+        }
     }
 }

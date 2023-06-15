@@ -1,27 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using car_insurance_mob.Models;
 using car_insurance_mob.Services;
-using static Xamarin.Essentials.Permissions;
-using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace car_insurance_mob.ViewModels
 {
-    internal class PassportDetailsViewModel : BaseViewModel
+    class AddPassportViewModel : BaseViewModel
     {
-        private PassportService _passportservice;
-        public Guid passportId;
-        private Guid id;
-        public Guid Id
-        {
-            get { return id; }
-            set
-            {
-                id = value;
-                OnPropertyChanged();
-            }
-        }
+        
         private string issued_By_Whom;
         public string Issued_By_Whom
         {
@@ -82,15 +71,23 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-       
-       
-        private string sex;
-        public string Sex
+        private bool isMale;
+        public bool IsMale
         {
-            get { return sex; }
+            get { return isMale; }
             set
             {
-                sex = value;
+                isMale = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool isFemale;
+        public bool IsFemale
+        {
+            get { return isFemale; }
+            set
+            {
+                isFemale = value;
                 OnPropertyChanged();
             }
         }
@@ -124,27 +121,37 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-        public PassportDetailsViewModel(PassportService _passportservice)
+        public ICommand SavePassportCommand { get; private set; }
+        public ICommand TakePhotoCommand { get; private set; }
+
+        private PassportService _passportService;
+        public AddPassportViewModel(PassportService passportService)
         {
-            this._passportservice = _passportservice;
+            _passportService = passportService;
+            TakePhotoCommand = new Command(TakePhoto);
+            SavePassportCommand = new Command(SavePassport);
+
         }
-        public void FillInfo(Guid passportid)
+        public void SavePassport()
+        {
+            Passport passport = new Passport();
+            Guid Id = Guid.NewGuid();
+            passport.Issued_By_Whom = Issued_By_Whom;
+            passport.DateOfIssue = DateOfIssue;
+            passport.DivisionCode = DivisionCode;
+            passport.Series = Series;
+            passport.Number = Number;
+            passport.FIO = FIO;
+            passport.IsMale = IsMale; 
+            passport.DateOfBirth = DateOfBirth;
+            passport.PlaceOfBirth = PlaceOfBirth;
+            passport.ResidenceAddress = ResidenceAddress;
+            _passportService.AddPassport(passport);
+        }
+        public void TakePhoto()
         {
 
-            Passport passport = _passportservice.GetPassport(passportid);
-           
-            Id = passportid;
-            Issued_By_Whom = passport.Issued_By_Whom;
-            DateOfIssue = passport.DateOfIssue;
-            DivisionCode = passport.DivisionCode;
-            Series = passport.Series;
-            Number = passport.Number;
-            FIO = passport.FIO;
-            Sex = passport.IsMale ? "Мужчина" : "Женщина"; ;
-            DateOfBirth = passport.DateOfBirth;
-            PlaceOfBirth = passport.PlaceOfBirth;
-            ResidenceAddress = passport.ResidenceAddress;
-
+            
         }
     }
 }

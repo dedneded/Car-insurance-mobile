@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="car_insurance_mob.Views.AddPassportPage"
+             BindingContext="{Binding AddPassportViewModel,Source={StaticResource CompositionRoot}}">
+
+    <ContentPage.Content>
+        <StackLayout Margin="20" Spacing="8" >
+
+            <Grid VerticalOptions="FillAndExpand">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollView Grid.Row="0">
+                    <StackLayout  Spacing="8">
+                        <StackLayout>
+                            <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" FontSize="22" Command="{Binding TakePhotoCommand}"
+                                    Text="📷 Отсканировать">
+
+                            </Button>
+
+                        </StackLayout>
+                        
+
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Серия:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Series}"  HorizontalOptions="FillAndExpand"/>
+                            
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Номер:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Number}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="ФИО:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding FIO}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Пол:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <StackLayout Orientation="Horizontal">
+                                <RadioButton x:Name="MaleRadioButton" Content="Мужчина" IsChecked="{Binding IsMale}" />
+                                <RadioButton x:Name="FemaleRadioButton" Content="Женщина" IsChecked="{Binding IsFemale}" />
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Кем выдан:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Issued_By_Whom}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Код подразделения:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding DivisionCode}" HorizontalOptions="FillAndExpand" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Дата выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <DatePicker Date="{Binding DateOfIssue}" Format="dd/MM/yyyy" HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Дата рождения" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <DatePicker Date="{Binding DateOfBirth}" Format="dd/MM/yyyy" HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Место рождения" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding PlaceOfBirth}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Адрес прописки" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding ResidenceAddress}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+
+
+                <StackLayout Grid.Row="1" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Сохранить" HorizontalOptions="FillAndExpand" Command="{Binding SavePassportCommand}"/>
+                </StackLayout>
+
+               
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
