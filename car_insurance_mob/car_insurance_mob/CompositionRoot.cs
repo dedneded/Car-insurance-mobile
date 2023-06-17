@@ -11,6 +11,7 @@ namespace car_insurance_mob
         readonly ClientService clientService;
         readonly PassportService passportService;
         readonly LicenseService licenseService;
+        readonly CarService carService;
         public ClientsListViewModel ClientsListViewModel => new ClientsListViewModel(clientService);
         
         public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService);
@@ -19,6 +20,10 @@ namespace car_insurance_mob
         public AddPassportViewModel AddPassportViewModel => new AddPassportViewModel(passportService);
         public LicenseDetailsViewModel LicenseDetailsViewModel => new LicenseDetailsViewModel(licenseService);
         public LicensesListViewModel LicensesListViewModel => new LicensesListViewModel(licenseService);
+        public AddLicenseViewModel AddLicenseViewModel => new AddLicenseViewModel(licenseService);
+        public CarsListViewModel CarsListViewModel => new CarsListViewModel(carService);
+        public CarDetailsViewModel CarDetailsViewModel => new CarDetailsViewModel(carService);        
+        public AddCarViewModel AddCarViewModel => new AddCarViewModel(carService);
 
 
         public CompositionRoot()
@@ -26,6 +31,7 @@ namespace car_insurance_mob
             this.clientService = new ClientService();
             this.passportService = new PassportService();
             this.licenseService = new LicenseService();
+            this.carService = new CarService();
         }
     }
 }

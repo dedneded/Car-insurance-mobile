@@ -31,5 +31,9 @@ namespace car_insurance_mob.Services
         {
             return licenses;
         }
+        public bool AddLicense(License license)
+        {
+            return true;
+        }
     }
 }

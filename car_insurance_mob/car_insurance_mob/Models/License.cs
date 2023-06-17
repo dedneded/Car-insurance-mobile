@@ -33,5 +33,9 @@ namespace car_insurance_mob.Models
 
 
         }
+        public License()
+        {
+            
+        }
     }
 }

@@ -128,6 +128,8 @@ namespace car_insurance_mob.ViewModels
         public AddPassportViewModel(PassportService passportService)
         {
             _passportService = passportService;
+            DateOfIssue = DateTime.Today;
+            DateOfBirth = DateTime.Today;
             TakePhotoCommand = new Command(TakePhoto);
             SavePassportCommand = new Command(SavePassport);
 

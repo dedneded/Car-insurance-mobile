@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="car_insurance_mob.Views.AddCarPage"
+             BindingContext="{Binding AddCarViewModel,Source={StaticResource CompositionRoot}}">
+
+    <ContentPage.Content>
+        <StackLayout Margin="20" Spacing="8" >
+
+            <Grid VerticalOptions="FillAndExpand">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollView Grid.Row="0">
+                    <StackLayout  Spacing="8">
+                        <StackLayout>
+                            <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" FontSize="22" Command="{Binding TakePhotoCommand}"
+                                    Text="📷 Отсканировать">
+                            </Button>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Регистрационный номер" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding RegistrationNumber}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Индентификационный номер" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding IdNumber}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Марка" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Brand}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Модель" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Model}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Тип ТС" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding TCType}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Категория ТС" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding TCCategory}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Год выпуска ТС" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding YearOfIssue}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Модель двигателя" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding EngineModel}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Двигатель №" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding EngineNumber}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Шасси №" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding ChassisNumber}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Кузов №" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding CarBodyNumber}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Цвет" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Color}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Цвет" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Color}"  HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Мощность двигателя, кВТ/л" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding EnginePower}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Рабочий объем двигателя" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding EngineDisplacement}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Серия" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Series}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Номер" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding Number}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Разрешенная max масса" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding MaxWeightPermitted}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Масса без нагрузки" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding WeightWithoutCapacity}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Собственник" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding NameOwner}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Место регистрации" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding PlaceRegistration}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Место выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Entry Text="{Binding PlaceOfIssue}"  HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Дата выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <DatePicker Date="{Binding PlaceOfIssue}" Format="dd/MM/yyyy" HorizontalOptions="FillAndExpand"/>
+
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+
+
+                <StackLayout Grid.Row="1" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Сохранить" HorizontalOptions="FillAndExpand" Command="{Binding SaveCarCommand}"/>
+                </StackLayout>
+
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

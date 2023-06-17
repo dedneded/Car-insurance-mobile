@@ -12,7 +12,9 @@ namespace car_insurance_mob
             InitializeComponent();
 
             //MainPage = new NavigationPage(new PassportsListPage());
-            MainPage = new NavigationPage(new AddPassportPage());
+            MainPage = new NavigationPage(new AddCarPage());
+            //MainPage = new NavigationPage(new CarDetailsPage(Guid.NewGuid()));
+
 
         }
 

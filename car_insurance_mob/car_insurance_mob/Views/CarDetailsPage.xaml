@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="car_insurance_mob.Views.CarDetailsPage"
+             BindingContext="{Binding CarDetailsViewModel,Source={StaticResource CompositionRoot}}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Удалить" />
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="20" Spacing="8" >
+
+            <Grid VerticalOptions="FillAndExpand">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollView Grid.Row="0">
+                    <StackLayout  Spacing="8">
+
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Id:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Регистрационный номер:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding RegistrationNumber}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Индентификационный номер:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding IdNumber}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Марка:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Brand}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Модель:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Model}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Тип ТС:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding TCType}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Категория ТС:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding TCCategory}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Год выпуска ТС:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding YearOfIssue}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Модель двигателя:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding EngineModel}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Двигатель №:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding EngineNumber}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Шасси №:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding ChassisNumber}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Кузов №:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding CarBodyNumber}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Цвет:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Color}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Мощность двигателя, кВТ/л:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding EnginePower}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Рабочий объем двигателя, см^3:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding EngineDisplacement}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Серия:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Series}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Номер:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding Number}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Разрешенная max масса, кг:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding MaxWeightPermitted}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Масса без нагрузки, кг:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding WeightWithoutCapacity}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Собственник:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding NameOwner}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Место регистрации" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding PlaceRegistration}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Место выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding PlaceOfIssue}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="Дата выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="{Binding DateOfIssue}" FontSize="16" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <RelativeLayout Margin="0,5">
+                            <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" HorizontalOptions="CenterAndExpand"
+                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-120}" />
+                        </RelativeLayout>
+
+                    </StackLayout>
+                </ScrollView>
+
+
+               
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
