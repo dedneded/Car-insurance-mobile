@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="car_insurance_mob.Views.ClientDetailsPage"
+             Title="Просмотр клиента"
              BindingContext="{Binding ClientDetailsViewModel,Source={StaticResource CompositionRoot}}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Удалить" />
@@ -20,7 +21,11 @@
                 </Grid.RowDefinitions>
 
                 <StackLayout Grid.Row="0" VerticalOptions="FillAndExpand">
-                    <Label Text="Личная информация" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,5,0,15" />
+                    <Label Text="Личная информация" HorizontalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,5,0,5"/>
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" 
+                            HorizontalOptions="FillAndExpand" Margin="0,5,0,10" 
+                            Command="{Binding EditClientCommand}"/>
+
 
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
                         <Label Text="Id:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
@@ -39,23 +44,23 @@
                         <Label Text="Почта:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                         <Label Text="{Binding Email}" FontSize="16" VerticalTextAlignment="Center" />
                     </StackLayout>
-                    <RelativeLayout Margin="0,5">
-                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" HorizontalOptions="CenterAndExpand"
-                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-105}" />
-                    </RelativeLayout>
+                   
 
                 </StackLayout>
 
                 <StackLayout Grid.Row="1" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Паспорта" HorizontalOptions="FillAndExpand" />
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"
+                            Text="Паспорта" HorizontalOptions="FillAndExpand" Command="{Binding GetPasportsCommand}"/>
                 </StackLayout>
 
                 <StackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Вод. удостоверения" HorizontalOptions="FillAndExpand" />
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"
+                            Text="Вод. удостоверения" HorizontalOptions="FillAndExpand" Command="{Binding GetLicensesCommand}"/>
                 </StackLayout>
 
                 <StackLayout Grid.Row="3" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Автомобили" HorizontalOptions="FillAndExpand" />
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"
+                            Text="Автомобили" HorizontalOptions="FillAndExpand" Command="{Binding GetCarsCommand}"/>
                 </StackLayout>
             </Grid>
         </StackLayout>

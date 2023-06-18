@@ -7,7 +7,9 @@ namespace car_insurance_mob.Services
 {
     public class CarService
     {
-        public static Car car1 = new Car(Guid.NewGuid(), "P758AE", "WDE1400321A269616", "Мерседес Benz",
+        public static string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
+        public static Guid idTest = new Guid(str);
+        public static Car car1 = new Car(idTest, "P758AE", "WDE1400321A269616", "Мерседес Benz",
             "9320", "Мерседес Benz 9320", "B", 1995, "model1", "10494422002105",
             "1111", "11111", "Синий", "161/212", 3199, "72EX", "879845", 2380, 1780,
             "Иванов Иван Иванович", "Иркутск, Ленина 11", "ГИБДД Иркутска", DateTime.Now);

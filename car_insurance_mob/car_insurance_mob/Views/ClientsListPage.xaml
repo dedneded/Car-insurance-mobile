@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="car_insurance_mob.Views.ClientsListPage"
+             Title="Список клиентов"
              BindingContext="{Binding ClientsListViewModel,Source={StaticResource CompositionRoot}}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Добавить" />
+
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Margin="10" Spacing="8">
+            
             <StackLayout>
                 <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Фильтр" Command="{Binding ApplyFiltersCommand}"/>
                 <StackLayout x:Name="filterContainer" IsVisible="{Binding IsFilterVisible}">
@@ -24,9 +30,13 @@
                         <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
                     </Grid>
                 </StackLayout>
-                
-                
-                
+            </StackLayout>
+            <StackLayout>
+                <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" FontSize="22" Command="{Binding ApplySortCommand}"
+                    Text="{Binding SortIcon}">
+
+                </Button>
+
             </StackLayout>
             <ListView ItemsSource="{Binding AllClients}"
                   HasUnevenRows="True"

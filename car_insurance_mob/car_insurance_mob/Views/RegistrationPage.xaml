@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="car_insurance_mob.Views.RegistrationPage"
+             Title="Регистрация"
+             BindingContext="{Binding RegistrationViewModel,Source={StaticResource CompositionRoot}}">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Зарегистрироваться"
+                     Command="{Binding RegCommand}" />
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout  Margin="20" Spacing="8">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal"  Margin="0,5">
+                    <Entry Text="{Binding FIO}"  HorizontalOptions="FillAndExpand" Placeholder="ФИО"/>
+
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"  Margin="0,5">
+                    <Entry Text="{Binding Phone}"  HorizontalOptions="FillAndExpand" Placeholder="Телефон"/>
+
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"  Margin="0,5">
+                    <Entry Text="{Binding Email}"  HorizontalOptions="FillAndExpand" Placeholder="Почта"/>
+
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"  Margin="0,5">
+                    <Entry Text="{Binding Password1}"  HorizontalOptions="FillAndExpand" Placeholder="Пароль"/>
+
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"  Margin="0,5">
+                    <Entry Text="{Binding Password2}"  HorizontalOptions="FillAndExpand" Placeholder="Подтверждение пароля"/>
+
+                </StackLayout>
+                <Label Text="{Binding Error}"
+                       Margin="8"
+                       FontSize="Medium"
+                       Grid.Row="0"
+                       TextColor="Red"/>
+                
+            </StackLayout>
+            
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

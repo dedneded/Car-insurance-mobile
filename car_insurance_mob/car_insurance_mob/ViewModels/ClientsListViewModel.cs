@@ -11,9 +11,21 @@ namespace car_insurance_mob.ViewModels
 {
     internal class ClientsListViewModel : BaseViewModel
     {
-        int Clicked = 0;
+        private bool Clicked = true;
         private ClientService _clientservice;
-        
+        private bool ascendingSort = true; // Начальное направление сортировки
+        private string sortIcon;
+        public string SortIcon
+        {
+            get { return sortIcon; }
+            set
+            {
+                sortIcon = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICommand ApplySortCommand { get; private set; }
+
         private ObservableCollection<Client> allClients;
         public ObservableCollection<Client> AllClients
         {
@@ -40,22 +52,26 @@ namespace car_insurance_mob.ViewModels
             _clientservice = clientservice;
             List <Client> clients = _clientservice.GetAllClients();
             AllClients = new ObservableCollection<Client>(clients);
-            
+            IsFilterVisible = false;
             ApplyFiltersCommand = new Command(ApplyFilters);
+            SortIcon = "⇑⇓";
+            
+            ApplySortCommand = new Command(ApplySort);
 
         }
         private void ApplyFilters()
         {
-            Clicked += 1;
-            if (Clicked % 2 == 0 )
-            {
-                IsFilterVisible = false;
-            }
-            else
-            {
-                IsFilterVisible = true;
-            }
+            Clicked = !Clicked;
+            // Изменение иконки в зависимости от направления сортировки
+            IsFilterVisible = Clicked ? false : true;
+            
 
+        }
+        private void ApplySort()
+        {
+            ascendingSort = !ascendingSort;
+            // Изменение иконки в зависимости от направления сортировки
+            SortIcon = ascendingSort ? "⇑⇓" : "⇓⇑";
         }
     }
 }

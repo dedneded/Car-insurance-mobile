@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="car_insurance_mob.Views.CarDetailsPage"
+             Title="Просмотр авто"
              BindingContext="{Binding CarDetailsViewModel,Source={StaticResource CompositionRoot}}">
 
     <ContentPage.ToolbarItems>
@@ -22,9 +23,10 @@
 
                 <ScrollView Grid.Row="0">
                     <StackLayout  Spacing="8">
-
+                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" 
+                            HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
                         <StackLayout Orientation="Horizontal"  Margin="0,5">
-                            <Label Text="Id:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                            <Label Text="Id:" FontSize="16" WidthRequest="125" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center"/>
                         </StackLayout>
 
@@ -116,10 +118,7 @@
                             <Label Text="Дата выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Label Text="{Binding DateOfIssue}" FontSize="16" VerticalTextAlignment="Center" />
                         </StackLayout>
-                        <RelativeLayout Margin="0,5">
-                            <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" HorizontalOptions="CenterAndExpand"
-                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-120}" />
-                        </RelativeLayout>
+                        
 
                     </StackLayout>
                 </ScrollView>

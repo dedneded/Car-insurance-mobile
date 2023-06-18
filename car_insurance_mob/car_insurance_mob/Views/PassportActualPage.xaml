@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="car_insurance_mob.Views.PassportDetailsPage"
-             Title="Просмотр паспорта"
-             BindingContext="{Binding PassportDetailsViewModel,Source={StaticResource CompositionRoot}}">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Удалить" />
+             x:Class="car_insurance_mob.Views.PassportActualPage"
+             Title="Актуальный паспорт"
+             BindingContext="{Binding PassportActualViewModel,Source={StaticResource CompositionRoot}}">
 
-    </ContentPage.ToolbarItems>
+   
     <ContentPage.Content>
         <StackLayout Margin="20" Spacing="8" >
 
@@ -19,11 +17,10 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                
+
                 <ScrollView Grid.Row="0">
                     <StackLayout  Spacing="8">
-                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" 
-                            HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
+                        
                         <StackLayout Orientation="Horizontal"  Margin="0,5">
                             <Label Text="Id:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold" />
                             <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center" Margin="50,0,0,0"/>
@@ -69,18 +66,20 @@
                             <Label Text="Адрес прописки" FontSize="16" WidthRequest="125" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Label Text="{Binding ResidenceAddress}" FontSize="16" VerticalTextAlignment="Center" />
                         </StackLayout>
-                        
+
 
                     </StackLayout>
                 </ScrollView>
-                
+
 
                 <StackLayout Grid.Row="1" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Добавить паспорт" HorizontalOptions="FillAndExpand" />
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"
+                            Text="Добавить паспорт" HorizontalOptions="FillAndExpand" Command="{Binding AddPasportCommand}"/>
                 </StackLayout>
 
                 <StackLayout Grid.Row="3" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Все паспорта" HorizontalOptions="FillAndExpand" />
+                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"
+                            Text="Все паспорта" HorizontalOptions="FillAndExpand" Command="{Binding AllPasportsCommand}"/>
                 </StackLayout>
             </Grid>
         </StackLayout>

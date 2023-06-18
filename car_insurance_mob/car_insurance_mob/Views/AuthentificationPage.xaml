@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="car_insurance_mob.Views.AuthentificationPage"
+             BindingContext="{Binding AuthentificationViewModel,Source={StaticResource CompositionRoot}}">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Зарегистрироваться"
+                     Command="{Binding RegCommand}" />
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="10" Spacing="8">
+
+            <Entry Text="{Binding Phone}"
+                       Placeholder="Телефон" />
+            <Entry Text="{Binding Password}"
+                       Placeholder="Пароль"
+                       IsPassword="True" />
+            <Label Text="{Binding Error}"
+                       Margin="8"
+                       FontSize="Medium"
+                       Grid.Row="0"
+                       TextColor="Red"/>
+            <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Войти" Command="{Binding LoginCommand}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

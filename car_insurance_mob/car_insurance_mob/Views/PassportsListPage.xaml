@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="car_insurance_mob.Views.PassportsListPage"
+             Title="Список паспортов"
              BindingContext="{Binding PassportsListViewModel,Source={StaticResource CompositionRoot}}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Добавить" />
+
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Margin="10" Spacing="8">
             <StackLayout>

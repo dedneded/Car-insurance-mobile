@@ -11,9 +11,11 @@ namespace car_insurance_mob
         {
             InitializeComponent();
 
-            //MainPage = new NavigationPage(new PassportsListPage());
-            MainPage = new NavigationPage(new AddCarPage());
-            //MainPage = new NavigationPage(new CarDetailsPage(Guid.NewGuid()));
+            MainPage = new NavigationPage(new AuthentificationPage());
+            //string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
+            //Guid idTest = new Guid(str);
+            // MainPage = new NavigationPage(new PassportActualPage(idTest));
+
 
 
         }
