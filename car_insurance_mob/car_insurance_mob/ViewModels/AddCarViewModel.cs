@@ -5,6 +5,7 @@ using System.Windows.Input;
 using car_insurance_mob.Services;
 using Xamarin.Forms;
 using car_insurance_mob.Models;
+using System.Threading.Tasks;
 
 namespace car_insurance_mob.ViewModels
 {
@@ -283,4 +284,23 @@ namespace car_insurance_mob.ViewModels
 
         }
     }
+    //public async Task CreateClientAsync()
+    //{
+    //    Employee emp1 = new Employee("Иванов Иван Иванович",
+    //        "88001111111", "email1@mail.ru", "111", DateTime.Now, DateTime.Now);
+    //    Client client = new Client("88001111111", "email1@mail.ru", DateTime.Now, emp1);
+
+    //    try
+    //    {
+    //        string response = await serviceClient.CreateClientAsync(client);
+    //        Console.WriteLine("Client created successfully!");
+    //        Console.WriteLine("Response: " + response);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine("An error occurred: " + ex.Message);
+    //    }
+    //}
+    //YourViewModel viewModel = new YourViewModel();
+    //await viewModel.CreateClientAsync();
 }

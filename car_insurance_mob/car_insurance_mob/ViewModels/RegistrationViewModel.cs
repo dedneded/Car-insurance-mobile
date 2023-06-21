@@ -102,9 +102,19 @@ namespace car_insurance_mob.ViewModels
                 return;
             }
             Employee employee = new Employee(FIO, Phone, Email, Password1, DateOfBirth, DateTime.Now);
-            
-        
-            _employeeService.AddEmployee(employee);
+            try
+            {
+                //Вызываем функцию CreateClientAsync для создания клиента
+                string response = await _employeeService.CreateEmployeeAsync(employee);
+                Console.WriteLine("Employee created successfully!");
+                Console.WriteLine("Response: " + response);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+
+            //_employeeService.AddEmployee(employee);
             await Application.Current.MainPage.Navigation.PushAsync(new AuthentificationPage());
         }
     }
