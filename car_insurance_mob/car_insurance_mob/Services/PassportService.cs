@@ -1,12 +1,179 @@
 ﻿using car_insurance_mob.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Numerics;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace car_insurance_mob.Services
 {
     public class PassportService
     {
+        private static readonly string baseUrl = "http://127.0.0.1:8000/";
+
+        public static async Task<string> CreatePassportAsync(Passport passport)
+        {
+            var url = $"{baseUrl}passports/create_passport/";
+            var jsonContent = JsonConvert.SerializeObject(new
+            {
+                passport.IssuedByWhom,
+                passport.DateOfIssue,
+                passport.DivisionCode,
+                passport.Series,
+                passport.Number,
+                passport.FIO,
+                passport.IsMale,
+                passport.DateOfBirth,
+                passport.PlaceOfBirth,
+                passport.ResidenceAddress,
+                Client = passport.Client.Id,
+            });
+
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
+        public static async Task<string> UpdatePassportAsync(Passport passport)
+        {
+            var url = $"{baseUrl}passports/update_passport/{passport.Id}/";
+            var jsonContent = JsonConvert.SerializeObject(new
+            {
+                passport.IssuedByWhom,
+                passport.DateOfIssue,
+                passport.DivisionCode,
+                passport.Series,
+                passport.Number,
+                passport.FIO,
+                passport.IsMale,
+                passport.DateOfBirth,
+                passport.PlaceOfBirth,
+                passport.ResidenceAddress,
+                Client = passport.Client.Id
+            });
+
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await httpClient.PutAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
+        public static async Task<Passport> GetPassportAsync(int passportId)
+        {
+            var url = $"{baseUrl}passports/get_passport/{passportId}/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    // Создаем новый объект Passport с пустыми полями
+                    var passport = new Passport
+                    {
+                        Client = new Client()
+                    };
+                    // Устанавливаем только ID клиента из JSON
+                    var jsonObject = JObject.Parse(jsonContent);
+                    passport.Client.Id = jsonObject.Value<int>("Client");
+                    return passport;
+
+                }
+                else
+                {
+                    throw new Exception($"Failed to retrieve passport. Status code: {response.StatusCode}");
+                }
+            }
+        }
+        public static async Task<List<Passport>> GetAllPassportsAsync()
+        {
+            var url = $"{baseUrl}passports/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    JArray jsonArray = JArray.Parse(jsonContent);
+                    List<Passport> passports = new List<Passport>();
+
+                    foreach (JObject jsonClient in jsonArray)
+                    {
+                        Passport passport = new Passport
+                        {
+                            Id = jsonClient.Value<Int64>("id"),
+                            IssuedByWhom = jsonClient.Value<string>("IssuedByWhom"),
+                            DateOfIssue = jsonClient.Value<DateTime>("DateOfIssue"),
+                            DivisionCode = jsonClient.Value<string>("DivisionCode"),
+                            Series = jsonClient.Value<string>("Series"),
+                            Number = jsonClient.Value<string>("Number"),
+                            FIO = jsonClient.Value<string>("FIO"),
+                            IsMale = jsonClient.Value<bool>("IsMale"),
+                            DateOfBirth = jsonClient.Value<DateTime>("DateOfBirth"),
+                            PlaceOfBirth = jsonClient.Value<string>("PlaceOfBirth"),
+                            ResidenceAddress = jsonClient.Value<string>("ResidenceAddress"),
+
+
+                        };
+
+                        int clientId = jsonClient.Value<int>("Client");
+
+                        Client client = await ClientService.GetClientAsync(clientId);
+                        passport.Client = client;
+
+                        passports.Add(passport);
+                    }
+                    return passports;
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
+        public static async Task<string> DeletePassportAsync(int passportId)
+        {
+            var url = $"{baseUrl}passports/delete_passport/{passportId}/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
         public static string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
         public static Guid idTest = new Guid(str);
         public static Passport pass1 = new Passport(idTest, "dfgdfgdfgdf", DateTime.Now, "1111", "1111", "508349","Иванов Иван Иванович",false, DateTime.Now, "Moscow", "Ленина 11");

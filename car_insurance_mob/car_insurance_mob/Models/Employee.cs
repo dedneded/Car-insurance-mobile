@@ -144,5 +144,38 @@ namespace car_insurance_mob.Models
         //}
         ///DELETE EMPLOYEE///
         ////////////////////////////////////////////////////////////////////////////////////////////
+        /////////GET EMPLOYEES///
+        //static async Task Main(string[] args)
+        //{
+        //    try
+        //    {
+        //        // Вызываем функцию GetAllEmployeesAsync для получения списка всех сотрудников
+        //        List<Employee> employees = await EmployeeService.GetAllEmployeesAsync();
+
+        //        if (employees.Count > 0)
+        //        {
+        //            // Выводим информацию о каждом сотруднике
+        //            foreach (var employee in employees)
+        //            {
+        //                Console.WriteLine($"ID: {employee.Id}");
+        //                Console.WriteLine($"FIO: {employee.FIO}");
+        //                Console.WriteLine($"Phone: {employee.Phone}");
+        //                Console.WriteLine($"Email: {employee.Email}");
+        //                Console.WriteLine($"DateOfBirth: {employee.DateOfBirth}");
+        //                Console.WriteLine($"DateAdd: {employee.DateAdd}");
+        //                Console.WriteLine();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("No employees found.");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("An error occurred: " + ex.Message);
+        //    }
+        //}
+        //////GET EMPLOYEES///
     }
 }

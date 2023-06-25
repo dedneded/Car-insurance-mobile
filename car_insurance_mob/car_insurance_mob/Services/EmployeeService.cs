@@ -92,6 +92,26 @@ namespace car_insurance_mob.Services
                 }
             }
         }
+        public async Task<List<Employee>> GetAllEmployeesAsync()
+        {
+            var url = $"{baseUrl}employees/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    var employees = JsonConvert.DeserializeObject<List<Employee>>(jsonContent);
+                    return employees;
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
         private Employee _stateUser;
 
         //public static string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";

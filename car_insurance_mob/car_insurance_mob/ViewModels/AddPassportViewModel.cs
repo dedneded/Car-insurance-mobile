@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using System.Windows.Input;
 using car_insurance_mob.Models;
@@ -137,8 +138,8 @@ namespace car_insurance_mob.ViewModels
         public void SavePassport()
         {
             Passport passport = new Passport();
-            Guid Id = Guid.NewGuid();
-            passport.Issued_By_Whom = Issued_By_Whom;
+            BigInteger Id = 1;
+            passport.IssuedByWhom = Issued_By_Whom;
             passport.DateOfIssue = DateOfIssue;
             passport.DivisionCode = DivisionCode;
             passport.Series = Series;

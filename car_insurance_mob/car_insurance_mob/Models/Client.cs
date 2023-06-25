@@ -1,6 +1,8 @@
 ﻿using car_insurance_mob.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +11,20 @@ namespace car_insurance_mob.Models
 {
     public class Client
     {
-        public Guid Id { get; set; }
+        [JsonProperty("id")]
+        public BigInteger? Id { get; set; }
+        [JsonProperty("Phone")]
         public string Phone { get; set; }
+        [JsonProperty("Email")]
         public string Email { get; set; }
+        [JsonProperty("DateAdd")]
         public DateTime DateAdd { get; set; }
+
+        [JsonProperty("DateDel")]
         public DateTime DateDel { get; set; }
-       
-       public Employee Employee { get; set; }
+        [JsonProperty("Employee")]
+        public Employee Employee { get; set; }
+
 
         public Client(string Phone, string Email, DateTime DateAdd, DateTime DateDel, Employee Employee)
         {
@@ -26,7 +35,7 @@ namespace car_insurance_mob.Models
             this.DateDel = DateDel;
             this.Employee = Employee;
         }
-        public Client(Guid Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel, Employee Employee)
+        public Client(BigInteger Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel, Employee Employee)
         {
             this.Id = Id;
             this.Phone = Phone;
@@ -35,7 +44,7 @@ namespace car_insurance_mob.Models
             this.DateDel = DateDel;
             this.Employee = Employee;
         }
-        public Client(Guid Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel)
+        public Client(BigInteger Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel)
         {
             this.Id = Id;
             this.Phone = Phone;
@@ -126,5 +135,54 @@ namespace car_insurance_mob.Models
 
         //}
         //////UPDATE CLIENT///
+        ///////////////////////////////////////////////////////////////////////////
+        //////DELETE CLIENT///
+        //static async Task Main(string[] args)
+        //{
+        //    try
+        //    {
+        //        //Вызываем функцию DeleteClientAsync для удаления клиента
+        //        string response = await ClientService.DeleteClientAsync(10);
+        //        Console.WriteLine("Client deleted successfully!");
+        //        Console.WriteLine("Response: " + response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("An error occurred: " + ex.Message);
+        //    }
+        //}
+        ///DELETE CLIENT///
+        ///////////////////////////////////////////////////////////////////////////
+        /////////GET CLIENTS///
+        //static async Task Main(string[] args)
+        //{
+        //    try
+        //    {
+        //        // Вызываем функцию GetAllClientsAsync для получения списка всех клиентов
+        //        List<Client> clients = await ClientService.GetAllClientsAsync();
+
+        //        if (clients.Count > 0)
+        //        {
+        //            // Выводим информацию о каждом сотруднике
+        //            foreach (var client in clients)
+        //            {
+        //                Console.WriteLine($"ID: {client.Id}");
+        //                Console.WriteLine($"Phone: {client.Phone}");
+        //                Console.WriteLine($"Email: {client.Email}");
+        //                Console.WriteLine($"DateAdd: {client.DateAdd}");
+        //                Console.WriteLine();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("No clients found.");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("An error occurred: " + ex.Message);
+        //    }
+        //}
+        //////GET CLIENTS///
     }
 }

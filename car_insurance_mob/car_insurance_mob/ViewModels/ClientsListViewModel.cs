@@ -13,6 +13,8 @@ namespace car_insurance_mob.ViewModels
     {
         private bool Clicked = true;
         private ClientService _clientservice;
+        private EmployeeService _employeeservice;
+
         private bool ascendingSort = true; // Начальное направление сортировки
         private string sortIcon;
         public string SortIcon
@@ -47,9 +49,10 @@ namespace car_insurance_mob.ViewModels
         }
         public ICommand ApplyFiltersCommand { get; private set; }
 
-        public ClientsListViewModel(ClientService clientservice)
+        public ClientsListViewModel(ClientService clientservice, EmployeeService employeeService)
         {
             _clientservice = clientservice;
+            _employeeservice = employeeService;
             List <Client> clients = _clientservice.GetAllClients();
             AllClients = new ObservableCollection<Client>(clients);
             IsFilterVisible = false;

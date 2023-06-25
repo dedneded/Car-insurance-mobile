@@ -16,7 +16,7 @@ namespace car_insurance_mob
         public AuthentificationViewModel AuthentificationViewModel => new AuthentificationViewModel(employeeService);
         public RegistrationViewModel RegistrationViewModel => new RegistrationViewModel(employeeService);
 
-        public ClientsListViewModel ClientsListViewModel => new ClientsListViewModel(clientService);
+        public ClientsListViewModel ClientsListViewModel => new ClientsListViewModel(clientService, employeeService);
         
         public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService);
         public PassportActualViewModel PassportActualViewModel => new PassportActualViewModel(passportService);
