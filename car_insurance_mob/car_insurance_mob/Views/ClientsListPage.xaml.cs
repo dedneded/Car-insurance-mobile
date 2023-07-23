@@ -19,12 +19,12 @@ namespace car_insurance_mob.Views
         private async void OnClientTapped(object sender, ItemTappedEventArgs e)
         {
 
-            if (e.Item != null)
-            {
-                var client = (Client)e.Item;
+            //if (e.Item != null)
+            //{
+            //    var client = (Client)e.Item;
 
-                await Navigation.PushAsync(new ClientDetailsPage(client.Id));
-            }
+            //    await Navigation.PushAsync(new ClientDetailsPage(client.Id));
+            //}
         }
        
     }

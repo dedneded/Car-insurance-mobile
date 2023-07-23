@@ -10,64 +10,72 @@ namespace car_insurance_mob.Models
 {
     public class Employee
     {
-        [JsonProperty("Id")]
+        [JsonProperty("id")]
         public BigInteger? Id { get; set; }
         [JsonProperty("FIO")]
         public string FIO { get; set; }
         [JsonProperty("Phone")]
         public string Phone { get; set; }
         [JsonProperty("Email")]
-
         public string Email { get; set; }
-        [JsonProperty("Passwd")]
-
-        public string Passwd { get; set; }
+        [JsonProperty("Password")]
+        public string Password { get; set; }
         [JsonProperty("DateOfBirth")]
-
         public DateTime DateOfBirth { get; set; }
         [JsonProperty("DateAdd")]
-
         public DateTime DateAdd { get; set; }
         [JsonProperty("DateDel")]
-
         public DateTime? DateDel { get; set; }
-        public Employee(string FIO, string Phone, string Email, string Passwd,
-            DateTime DateOfBirth, DateTime DateAdd)
+        public Employee(string FIO, string Phone, string Email, string Password,
+        DateTime DateOfBirth, DateTime DateAdd)
         {
             this.FIO = FIO;
             this.Phone = Phone;
             this.Email = Email;
-            this.Passwd = Passwd;
+            this.Password = Password;
             this.DateOfBirth = DateOfBirth;
             this.DateAdd = DateAdd;
-            
 
         }
-        public Employee(BigInteger Id, string FIO, string Phone, string Email, string Passwd,
-            DateTime DateOfBirth, DateTime DateAdd)
+        public Employee(string FIO, string Phone, string Email, string Password,
+            DateTime DateOfBirth, DateTime DateAdd, DateTime DateDel)
+        {
+            this.FIO = FIO;
+            this.Phone = Phone;
+            this.Email = Email;
+            this.Password = Password;
+            this.DateOfBirth = DateOfBirth;
+            this.DateAdd = DateAdd;
+            this.DateDel = DateDel;
+
+        }
+        public Employee(BigInteger Id, string FIO, string Phone, string Email, string Password,
+           DateTime DateOfBirth, DateTime DateAdd, DateTime DateDel)
         {
             this.Id = Id;
             this.FIO = FIO;
             this.Phone = Phone;
             this.Email = Email;
-            this.Passwd = Passwd;
+            this.Password = Password;
             this.DateOfBirth = DateOfBirth;
             this.DateAdd = DateAdd;
-
+            this.DateDel = DateDel;
 
         }
-        public Employee(string Phone,string Passwd)
-            
+        public Employee(string Phone, string Password)
         {
+           
             this.Phone = Phone;
-            this.Passwd = Passwd;
-
+           
+            this.Password = Password;
+           
 
         }
         public Employee()
         {
-            
+
         }
+         
         /////////////////////////////////////////////////////////////////////////////////////////
         //////UPDATE EMPLOYEE///
         //static async Task Main(string[] args)

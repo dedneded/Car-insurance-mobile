@@ -62,18 +62,18 @@ namespace car_insurance_mob.ViewModels
             Employee employee = new Employee(Phone, Password);
 
 
-            if (_employeeService.Authentification(employee))
-            {
-                currentuser = _employeeService.GetStateUser();
+            //if (_employeeService.Authentification(employee))
+            //{
+            //    currentuser = _employeeService.GetStateUser();
 
-                await Application.Current.MainPage.Navigation.PushAsync(new ClientsListPage());
+            //    await Application.Current.MainPage.Navigation.PushAsync(new ClientsListPage());
 
 
-            }
-            else
-            {
-                Error = "Неправильный логин или пароль!";
-            }
+            //}
+            //else
+            //{
+            //    Error = "Неправильный логин или пароль!";
+            //}
 
 
         }

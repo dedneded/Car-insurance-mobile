@@ -121,7 +121,7 @@ namespace car_insurance_mob.Services
                     {
                         Car car = new Car
                         {
-                            Id = jsonClient.Value<Int64>("id"),
+                            //Id = jsonClient.Value<Int64>("id"),
                             RegistrationNumber = jsonClient.Value<string>("RegistrationNumber"),
                             IdNumber = jsonClient.Value<string>("IdNumber"),
                             Brand = jsonClient.Value<string>("Brand"),

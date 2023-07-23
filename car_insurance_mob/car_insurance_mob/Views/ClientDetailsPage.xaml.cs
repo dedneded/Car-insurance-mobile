@@ -20,7 +20,7 @@ namespace car_insurance_mob.Views
 
 
             InitializeComponent();
-            (this.BindingContext as ClientDetailsViewModel).FillInfo(clientId);
+            //(this.BindingContext as ClientDetailsViewModel).FillInfo(clientId);
 
         }
 

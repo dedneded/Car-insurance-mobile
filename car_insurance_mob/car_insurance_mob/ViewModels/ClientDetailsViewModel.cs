@@ -53,15 +53,15 @@ namespace car_insurance_mob.ViewModels
 
         public ICommand GetCarsCommand { get; private set; }
 
-        public void FillInfo(Guid clientid)
-        {
+        //public void FillInfo(Guid clientid)
+        //{
 
-            Client client = _clientservice.GetClient(clientid);
-            Email = client.Email;
-            Phone = client.Phone;
-            Id = clientid;
+        //    Client client = _clientservice.GetClient(clientid);
+        //    Email = client.Email;
+        //    Phone = client.Phone;
+        //    Id = clientid;
             
-        }
+        //}
 
         public ClientDetailsViewModel(ClientService clientservice)
         {

@@ -134,7 +134,7 @@ namespace car_insurance_mob.ViewModels
             Passport passport = _passportservice.GetPassport(passportid);
            
             Id = passportid;
-            Issued_By_Whom = passport.Issued_By_Whom;
+            //Issued_By_Whom = passport.Issued_By_Whom;
             DateOfIssue = passport.DateOfIssue;
             DivisionCode = passport.DivisionCode;
             Series = passport.Series;

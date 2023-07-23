@@ -25,6 +25,10 @@
                     <Entry Text="{Binding Email}"  HorizontalOptions="FillAndExpand" Placeholder="Почта"/>
 
                 </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="0,5">
+                    <Label Text="Дата рождения:" VerticalOptions="Center" FontSize="16"/>
+                    <DatePicker Date="{Binding DateOfBirth}" Format="D" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
                 <StackLayout Orientation="Horizontal"  Margin="0,5">
                     <Entry Text="{Binding Password1}"  HorizontalOptions="FillAndExpand" Placeholder="Пароль"/>
 

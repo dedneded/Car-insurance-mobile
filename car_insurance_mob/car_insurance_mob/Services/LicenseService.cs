@@ -119,7 +119,7 @@ namespace car_insurance_mob.Services
                     {
                         License license = new License
                         {
-                            Id = jsonClient.Value<Int64>("id"),
+                            //Id = jsonClient.Value<Int64>("id"),
                             DateOfIssue = jsonClient.Value<DateTime>("DateOfIssue"),
                             ExpirationDate = jsonClient.Value<DateTime>("ExpirationDate"),
                             CodeGIBDD = jsonClient.Value<string>("CodeGIBDD"),

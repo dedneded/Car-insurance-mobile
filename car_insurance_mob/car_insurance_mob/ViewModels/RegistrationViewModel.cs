@@ -94,6 +94,7 @@ namespace car_insurance_mob.ViewModels
             if (String.IsNullOrEmpty(FIO)) return;
             if (String.IsNullOrEmpty(Phone)) return;
             if (String.IsNullOrEmpty(Email)) return;
+            if (DateOfBirth == null) return;
             if (String.IsNullOrEmpty(Password1)) return;
             if (String.IsNullOrEmpty(Password2)) return;
             if (Password1 != Password2)
@@ -102,6 +103,9 @@ namespace car_insurance_mob.ViewModels
                 return;
             }
             Employee employee = new Employee(FIO, Phone, Email, Password1, DateOfBirth, DateTime.Now);
+            //Employee employee = new Employee("Иванов Иван Иванович",
+            //"88001111111", "email2@mail.ru", "111", DateTime.Now, DateTime.Now);
+
             try
             {
                 //Вызываем функцию CreateClientAsync для создания клиента
@@ -115,7 +119,7 @@ namespace car_insurance_mob.ViewModels
             }
 
             //_employeeService.AddEmployee(employee);
-            await Application.Current.MainPage.Navigation.PushAsync(new AuthentificationPage());
+            //await Application.Current.MainPage.Navigation.PushAsync(new AuthentificationPage());
         }
     }
 }

@@ -20,7 +20,7 @@ namespace car_insurance_mob.Models
         public string PlaceOfBirth { get; set; }
         public string ResidenceAddress { get; set; }
         public Client Client { get; set; }
-        public Passport(Guid Id, string Issued_By_Whom, DateTime DateOfIssue, string DivisionCode, string Series,
+        public Passport(BigInteger Id, string Issued_By_Whom, DateTime DateOfIssue, string DivisionCode, string Series,
             string Number, string FIO, bool Sex, DateTime DateOfBirth, string PlaceOfBirth, string ResidenceAddress)
         {
             this.Id = Id;
