@@ -143,8 +143,8 @@ namespace car_insurance_mob.Services
 
                         int clientId = jsonClient.Value<int>("Client");
 
-                        Client client = await ClientService.GetClientAsync(clientId);
-                        passport.Client = client;
+                        //Client client = await ClientService.GetClientAsync(clientId);
+                        //passport.Client = client;
 
                         passports.Add(passport);
                     }

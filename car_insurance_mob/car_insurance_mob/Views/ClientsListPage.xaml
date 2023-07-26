@@ -5,7 +5,7 @@
              Title="Список клиентов"
              BindingContext="{Binding ClientsListViewModel,Source={StaticResource CompositionRoot}}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Добавить" />
+        <ToolbarItem Text="Добавить" Command="{Binding AddClientCommand}"/>
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

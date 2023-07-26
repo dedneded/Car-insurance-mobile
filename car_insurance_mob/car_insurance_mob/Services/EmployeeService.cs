@@ -14,6 +14,7 @@ namespace car_insurance_mob.Services
     public class EmployeeService
     {
         public readonly string baseUrl = "https://www.myprojectcarinsurance.ru/";
+        private Employee _stateUser;
         public async Task<string> CreateEmployeeAsync(Employee employee)
         {
             var url = $"{baseUrl}employees/create_employee/";
@@ -114,9 +115,36 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        private Employee _stateUser;
+        
+        public async Task<bool> Authentification(string phone, string passwrd)
+        {
+            var url = $"{baseUrl}employees/authentification/";
 
-      
+            using (var httpClient = new HttpClient())
+            {
+
+                var requestData = new Dictionary<string, string>
+                {
+                    { "phone", phone },
+                    { "password", passwrd }
+                };
+                var jsonContent = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(url, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent1 = await response.Content.ReadAsStringAsync();
+                    var employee = JsonConvert.DeserializeObject<Employee>(jsonContent1);
+                    _stateUser = employee;
+                    return true;
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
+
         //public Employee GetEmployee(string Passwd)
         //{
         //    Employee empl = null;
@@ -134,7 +162,7 @@ namespace car_insurance_mob.Services
         //public bool Authentification(Employee employee)
         //{
         //    Employee emp = GetEmployee(employee.Passwd);
-            
+
         //    if (emp != null)
         //    {
         //        return true;

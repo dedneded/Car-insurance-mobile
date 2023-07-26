@@ -8,19 +8,20 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using car_insurance_mob.Services;
 using car_insurance_mob.Models;
+using System.Numerics;
 
 namespace car_insurance_mob.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClientDetailsPage : ContentPage
     {
-        public ClientDetailsPage(Guid clientId)
+        public ClientDetailsPage(int clientId)
         {
             
 
 
             InitializeComponent();
-            //(this.BindingContext as ClientDetailsViewModel).FillInfo(clientId);
+            (this.BindingContext as ClientDetailsViewModel).FillInfo(clientId);
 
         }
 

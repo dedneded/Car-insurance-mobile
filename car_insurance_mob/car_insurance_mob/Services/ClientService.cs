@@ -14,9 +14,9 @@ namespace car_insurance_mob.Services
     public class ClientService
 
     {
-        
-        private static readonly string baseUrl = "http://127.0.0.1:8000/";
-        public static async Task<string> CreateClientAsync(Client client)
+        public readonly string baseUrl = "https://www.myprojectcarinsurance.ru/";
+        public List<Client> clients;
+        public async Task<string> CreateClientAsync(Client client)
         {
             var url = $"{baseUrl}clients/create_client/";
             var jsonContent = JsonConvert.SerializeObject(new { client.Phone, client.Email, client.DateAdd, client.DateDel, Employee = client.Employee.Id });
@@ -36,7 +36,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<string> UpdateClientAsync(Client client)
+        public  async Task<string> UpdateClientAsync(Client client)
         {
             var url = $"{baseUrl}clients/update_client/{client.Id}/";
             var jsonContent = JsonConvert.SerializeObject(new { client.Phone, client.Email, client.DateAdd, client.DateDel, Employee = client.Employee.Id });
@@ -56,7 +56,35 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<Client> GetClientAsync(int clientId)
+        //public async Task<Client> GetClientAsync(int clientId)
+        //{
+        //    var url = $"{baseUrl}clients/get_client/{clientId}/";
+
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        var response = await httpClient.GetAsync(url);
+
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            var jsonContent = await response.Content.ReadAsStringAsync();
+        //            // Создаем новый объект Client с пустыми полями
+        //            var client = new Client
+        //            {
+        //                Employee = new Employee()
+        //            };
+        //            // Устанавливаем только ID сотрудника из JSON
+        //            var jsonObject = JObject.Parse(jsonContent);
+        //            client.Employee.Id = jsonObject.Value<int>("Employee");
+        //            //var client = JsonConvert.DeserializeObject<Client>(jsonContent);
+        //            return client;
+        //        }
+        //        else
+        //        {
+        //            throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+        //        }
+        //    }
+        //}
+        public async Task<Client> GetClientAsync(int clientId, EmployeeService _employeeService)
         {
             var url = $"{baseUrl}clients/get_client/{clientId}/";
 
@@ -74,9 +102,54 @@ namespace car_insurance_mob.Services
                     };
                     // Устанавливаем только ID сотрудника из JSON
                     var jsonObject = JObject.Parse(jsonContent);
-                    client.Employee.Id = jsonObject.Value<int>("Employee");
-                    //var client = JsonConvert.DeserializeObject<Client>(jsonContent);
+                    client.Id = jsonObject.Value<int>("id");
+                    client.Employee = await _employeeService.GetEmployeeAsync(jsonObject.Value<int>("Employee"));
+                    client.Email = jsonObject.Value<string>("Email");
+                    client.DateAdd = jsonObject.Value<DateTime>("DateAdd");
+                    client.Phone = jsonObject.Value<string>("Phone");
+                    client.DateDel = jsonObject.Value<DateTime>("DateDel");
+                    
                     return client;
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
+        public async Task<List<Client>> GetAllClientsAsync(EmployeeService _employeeservice)
+        {
+            var url = $"{baseUrl}clients/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    JArray jsonArray = JArray.Parse(jsonContent);
+                    List<Client> clients = new List<Client>();
+
+                    foreach (JObject jsonClient in jsonArray)
+                    {
+                        Client client = new Client
+                        {
+                            Id = jsonClient.Value<int>("id"),
+                            Phone = jsonClient.Value<string>("Phone"),
+                            Email = jsonClient.Value<string>("Email"),
+                            DateAdd = jsonClient.Value<DateTime>("DateAdd"),
+                            DateDel = jsonClient.Value<DateTime>("DateDel"),
+                        };
+
+                        int employeeId = jsonClient.Value<int>("Employee");
+
+                        Employee employee = await _employeeservice.GetEmployeeAsync(employeeId);
+                        client.Employee = employee;
+
+                        clients.Add(client);
+                    }
+                    return clients;
                 }
                 else
                 {
@@ -135,7 +208,7 @@ namespace car_insurance_mob.Services
         public static Client client2 = new Client(2, "88002222222", "email2@mail.ru", DateTime.Now, DateTime.Now);
         public static Client client3 = new Client(3, "88003333333", "email3@mail.ru", DateTime.Now, DateTime.Now);
         public static Client client4 = new Client(4, "88004444444", "email4@mail.ru", DateTime.Now, DateTime.Now);
-        public List<Client> clients = new List<Client> { client1, client2, client3, client4 };
+        //public List<Client> clients = new List<Client> { client1, client2, client3, client4 };
         public Client GetClient(BigInteger id)
         {
             Client client = null;
@@ -150,9 +223,9 @@ namespace car_insurance_mob.Services
             }
             return client;
         }
-        public List<Client> GetAllClients()
-        {
-            return clients;
-        }
+        //public List<Client> GetAllClients()
+        //{
+        //    return clients;
+        //}
     }
 }

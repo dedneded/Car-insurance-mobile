@@ -12,7 +12,7 @@ namespace car_insurance_mob.Models
     public class Client
     {
         [JsonProperty("id")]
-        public BigInteger? Id { get; set; }
+        public int Id { get; set; }
         [JsonProperty("Phone")]
         public string Phone { get; set; }
         [JsonProperty("Email")]
@@ -35,7 +35,7 @@ namespace car_insurance_mob.Models
             this.DateDel = DateDel;
             this.Employee = Employee;
         }
-        public Client(BigInteger Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel, Employee Employee)
+        public Client(int Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel, Employee Employee)
         {
             this.Id = Id;
             this.Phone = Phone;
@@ -44,7 +44,7 @@ namespace car_insurance_mob.Models
             this.DateDel = DateDel;
             this.Employee = Employee;
         }
-        public Client(BigInteger Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel)
+        public Client(int Id, string Phone, string Email, DateTime DateAdd, DateTime DateDel)
         {
             this.Id = Id;
             this.Phone = Phone;

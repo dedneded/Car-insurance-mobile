@@ -28,21 +28,33 @@
 
 
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
-                        <Label Text="Id:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="Id:" FontSize="16" WidthRequest="90" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                         <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center"/>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
-                        <Label Text="ФИО:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="ФИО:" FontSize="16" WidthRequest="90" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                         <Label Text="Иванов Иван Иванович" FontSize="16" VerticalTextAlignment="Center" />
                     </StackLayout>
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
-                        <Label Text="Телефон:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="Телефон:" FontSize="16" WidthRequest="90" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                         <Label Text="{Binding Phone, Mode=OneWay}" FontSize="16" VerticalTextAlignment="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal"  Margin="0,5">
-                        <Label Text="Почта:" FontSize="16" WidthRequest="70" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="Почта:" FontSize="16" WidthRequest="90" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                         <Label Text="{Binding Email}" FontSize="16" VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"  Margin="0,5">
+                        <Label Text="Создан:" FontSize="16" WidthRequest="90" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="{Binding DateAdd}" FontSize="16" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"  Margin="0,5">
+                        <Label Text="Удален:" FontSize="16" WidthRequest="90" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="{Binding DateDel}" FontSize="16" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"  Margin="0,5">
+                        <Label Text="Менеджер:" FontSize="16" WidthRequest="90" VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                        <Label Text="{Binding Employee}" FontSize="16" VerticalTextAlignment="Center" />
                     </StackLayout>
                    
 

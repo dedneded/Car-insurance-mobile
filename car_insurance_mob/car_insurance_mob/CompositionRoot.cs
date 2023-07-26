@@ -13,12 +13,12 @@ namespace car_insurance_mob
         readonly LicenseService licenseService;
         readonly CarService carService;
         readonly EmployeeService employeeService;
-        public AuthentificationViewModel AuthentificationViewModel => new AuthentificationViewModel(employeeService);
+        public AuthentificationViewModel AuthentificationViewModel => new AuthentificationViewModel(employeeService, clientService);
         public RegistrationViewModel RegistrationViewModel => new RegistrationViewModel(employeeService);
 
         public ClientsListViewModel ClientsListViewModel => new ClientsListViewModel(clientService, employeeService);
         
-        public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService);
+        public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService, employeeService);
         public PassportActualViewModel PassportActualViewModel => new PassportActualViewModel(passportService);
 
         public PassportDetailsViewModel PassportDetailsViewModel => new PassportDetailsViewModel(passportService);

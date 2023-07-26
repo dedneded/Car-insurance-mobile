@@ -134,8 +134,8 @@ namespace car_insurance_mob.Services
 
                         int clientId = jsonClient.Value<int>("Client");
 
-                        Client client = await ClientService.GetClientAsync(clientId);
-                        license.Client = client;
+                        //Client client = await ClientService.GetClientAsync(clientId);
+                        //license.Client = client;
 
                         licenses.Add(license);
                     }

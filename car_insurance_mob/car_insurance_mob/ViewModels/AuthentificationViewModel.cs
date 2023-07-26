@@ -14,6 +14,7 @@ namespace car_insurance_mob.ViewModels
     {
         Employee currentuser;
         private EmployeeService _employeeService;
+        private ClientService _clientService;
         private string phone;
         public string Phone
         {
@@ -46,9 +47,10 @@ namespace car_insurance_mob.ViewModels
         }
         public ICommand LoginCommand { get; private set; }
         public ICommand RegCommand { get; private set; }
-        public AuthentificationViewModel(EmployeeService employeeService)
+        public AuthentificationViewModel(EmployeeService employeeService, ClientService clientService)
         {
             _employeeService = employeeService;
+            _clientService = clientService;
             RegCommand = new Command(Reg);
             LoginCommand = new Command(Login);
         }
@@ -59,21 +61,19 @@ namespace car_insurance_mob.ViewModels
             if (String.IsNullOrEmpty(Password)) return;
 
 
-            Employee employee = new Employee(Phone, Password);
+            if (await _employeeService.Authentification(Phone, Password))
+            {
+                currentuser = _employeeService.GetStateUser();
+                List<Client> clients = await _clientService.GetAllClientsAsync(_employeeService);
+                _clientService.clients = clients;
+                await Application.Current.MainPage.Navigation.PushAsync(new ClientsListPage());
 
 
-            //if (_employeeService.Authentification(employee))
-            //{
-            //    currentuser = _employeeService.GetStateUser();
-
-            //    await Application.Current.MainPage.Navigation.PushAsync(new ClientsListPage());
-
-
-            //}
-            //else
-            //{
-            //    Error = "Неправильный логин или пароль!";
-            //}
+            }
+            else
+            {
+                Error = "Неправильный логин или пароль!";
+            }
 
 
         }

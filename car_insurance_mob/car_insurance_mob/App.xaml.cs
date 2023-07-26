@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 using car_insurance_mob.Services;
 using car_insurance_mob.Models;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace car_insurance_mob
 {
@@ -13,8 +14,7 @@ namespace car_insurance_mob
         public App()
         {
             InitializeComponent();
-            
-            MainPage = new NavigationPage(new RegistrationPage());
+            MainPage = new NavigationPage(new AuthentificationPage());
             
 
 

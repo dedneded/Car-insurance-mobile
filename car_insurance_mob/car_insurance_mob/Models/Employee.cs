@@ -11,13 +11,15 @@ namespace car_insurance_mob.Models
     public class Employee
     {
         [JsonProperty("id")]
-        public BigInteger? Id { get; set; }
+        public int Id { get; set; }
         [JsonProperty("FIO")]
         public string FIO { get; set; }
         [JsonProperty("Phone")]
         public string Phone { get; set; }
         [JsonProperty("Email")]
         public string Email { get; set; }
+        [JsonProperty("IsAdmin")]
+        public string IsAdmin { get; set; }
         [JsonProperty("Password")]
         public string Password { get; set; }
         [JsonProperty("DateOfBirth")]
@@ -49,7 +51,7 @@ namespace car_insurance_mob.Models
             this.DateDel = DateDel;
 
         }
-        public Employee(BigInteger Id, string FIO, string Phone, string Email, string Password,
+        public Employee(int Id, string FIO, string Phone, string Email, string Password,
            DateTime DateOfBirth, DateTime DateAdd, DateTime DateDel)
         {
             this.Id = Id;
