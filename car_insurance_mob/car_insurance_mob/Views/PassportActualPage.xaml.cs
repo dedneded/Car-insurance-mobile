@@ -14,10 +14,10 @@ namespace car_insurance_mob.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PassportActualPage : ContentPage
     {
-        public PassportActualPage(Guid idActualPassport)
+        public PassportActualPage(Passport passport, int clientId)
         {
             InitializeComponent();
-            (this.BindingContext as PassportActualViewModel).FillInfo(idActualPassport);
+            (this.BindingContext as PassportActualViewModel).FillInfo(passport, clientId);
 
         }
     }

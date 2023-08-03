@@ -1,4 +1,6 @@
-﻿using System;
+﻿using car_insurance_mob.Models;
+using car_insurance_mob.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,10 @@ namespace car_insurance_mob.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddPassportPage : ContentPage
 	{
-		public AddPassportPage ()
-		{
+		public AddPassportPage (int clientId)
+        {
 			InitializeComponent ();
-		}
+            (this.BindingContext as AddPassportViewModel).clientId = clientId;
+        }
 	}
 }

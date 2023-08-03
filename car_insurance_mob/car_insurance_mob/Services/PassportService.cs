@@ -12,9 +12,9 @@ namespace car_insurance_mob.Services
 {
     public class PassportService
     {
-        private static readonly string baseUrl = "http://127.0.0.1:8000/";
+        public readonly string baseUrl = "https://www.myprojectcarinsurance.ru/";
 
-        public static async Task<string> CreatePassportAsync(Passport passport)
+        public async Task<string> CreatePassportAsync(Passport passport)
         {
             var url = $"{baseUrl}passports/create_passport/";
             var jsonContent = JsonConvert.SerializeObject(new
@@ -47,7 +47,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<string> UpdatePassportAsync(Passport passport)
+        public async Task<string> UpdatePassportAsync(Passport passport)
         {
             var url = $"{baseUrl}passports/update_passport/{passport.Id}/";
             var jsonContent = JsonConvert.SerializeObject(new
@@ -80,7 +80,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<Passport> GetPassportAsync(int passportId)
+        public async Task<Passport> GetPassportAsync(int passportId)
         {
             var url = $"{baseUrl}passports/get_passport/{passportId}/";
 
@@ -108,7 +108,49 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<List<Passport>> GetAllPassportsAsync()
+        public async Task<Passport> GetActualPassport(ClientService _clientService, EmployeeService _employeeService, int clientId)
+        {
+            var url = $"{baseUrl}passports/get_actual_passport/{clientId}";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    // Создаем новый объект Passport с пустыми полями
+                    var passport = new Passport
+                    {
+                        Client = new Client()
+                    };
+                    // Устанавливаем только ID клиента из JSON
+                    var jsonObject = JObject.Parse(jsonContent);
+                    
+                    passport.Client = await _clientService.GetClientAsync(jsonObject.Value<int>("Client"), _employeeService);
+                    passport.Id = jsonObject.Value<int>("id");
+                    passport.IssuedByWhom = jsonObject.Value<string>("IssuedByWhom");
+                    passport.DateOfIssue = jsonObject.Value<DateTime>("DateOfIssue");
+                    passport.DivisionCode = jsonObject.Value<string>("DivisionCode");
+                    passport.Series = jsonObject.Value<string>("Series");
+                    passport.Number = jsonObject.Value<string>("Number");
+                    passport.FIO = jsonObject.Value<string>("FIO");
+                    passport.IsMale = jsonObject.Value<bool>("IsMale");
+                    passport.DateOfBirth = jsonObject.Value<DateTime>("DateOfBirth");
+                    passport.PlaceOfBirth = jsonObject.Value<string>("PlaceOfBirth");
+                    passport.ResidenceAddress = jsonObject.Value<string>("ResidenceAddress");
+
+
+                    return passport;
+
+                }
+                else
+                {
+                    throw new Exception($"Failed to retrieve passport. Status code: {response.StatusCode}");
+                }
+            }
+        }
+        public async Task<List<Passport>> GetAllPassportsAsync()
         {
             var url = $"{baseUrl}passports/";
 
@@ -126,7 +168,7 @@ namespace car_insurance_mob.Services
                     {
                         Passport passport = new Passport
                         {
-                            Id = jsonClient.Value<Int64>("id"),
+                            Id = jsonClient.Value<int>("id"),
                             IssuedByWhom = jsonClient.Value<string>("IssuedByWhom"),
                             DateOfIssue = jsonClient.Value<DateTime>("DateOfIssue"),
                             DivisionCode = jsonClient.Value<string>("DivisionCode"),
@@ -156,7 +198,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<string> DeletePassportAsync(int passportId)
+        public async Task<string> DeletePassportAsync(int passportId)
         {
             var url = $"{baseUrl}passports/delete_passport/{passportId}/";
 

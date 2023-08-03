@@ -11,7 +11,7 @@ namespace car_insurance_mob.ViewModels
 {
     class AddPassportViewModel : BaseViewModel
     {
-        
+        public int clientId;
         private string issued_By_Whom;
         public string Issued_By_Whom
         {
@@ -126,19 +126,23 @@ namespace car_insurance_mob.ViewModels
         public ICommand TakePhotoCommand { get; private set; }
 
         private PassportService _passportService;
-        public AddPassportViewModel(PassportService passportService)
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        public AddPassportViewModel(PassportService passportService, ClientService clientService, EmployeeService employeeService)
         {
             _passportService = passportService;
+            _clientService = clientService;
+            _employeeService = employeeService;
             DateOfIssue = DateTime.Today;
             DateOfBirth = DateTime.Today;
             TakePhotoCommand = new Command(TakePhoto);
             SavePassportCommand = new Command(SavePassport);
 
         }
-        public void SavePassport()
+        public async void SavePassport()
         {
             Passport passport = new Passport();
-            BigInteger Id = 1;
+            passport.Client = await _clientService.GetClientAsync(clientId, _employeeService);
             passport.IssuedByWhom = Issued_By_Whom;
             passport.DateOfIssue = DateOfIssue;
             passport.DivisionCode = DivisionCode;
@@ -149,7 +153,7 @@ namespace car_insurance_mob.ViewModels
             passport.DateOfBirth = DateOfBirth;
             passport.PlaceOfBirth = PlaceOfBirth;
             passport.ResidenceAddress = ResidenceAddress;
-            _passportService.AddPassport(passport);
+            await _passportService.CreatePassportAsync(passport);
         }
         public void TakePhoto()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
@@ -7,20 +8,45 @@ namespace car_insurance_mob.Models
 {
     public class Passport
     {
-        public BigInteger? Id { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
+        [JsonProperty("IssuedByWhom")]
+
         public string IssuedByWhom { get; set; }
+        [JsonProperty("DateOfIssue")]
+
         public DateTime DateOfIssue { get; set; }
+        [JsonProperty("DivisionCode")]
+
         public string DivisionCode { get; set; }
+        [JsonProperty("Series")]
+
+
         public string Series { get; set; }
+        [JsonProperty("Number")]
+
         public string Number { get; set; }
+        [JsonProperty("FIO")]
+
 
         public string FIO { get; set; }
+        [JsonProperty("IsMale")]
+
         public bool IsMale { get; set; }
+        [JsonProperty("DateOfBirth")]
+
         public DateTime DateOfBirth { get; set; }
+        [JsonProperty("PlaceOfBirth")]
+
         public string PlaceOfBirth { get; set; }
+        [JsonProperty("ResidenceAddress")]
+
         public string ResidenceAddress { get; set; }
+        [JsonProperty("Client")]
+
         public Client Client { get; set; }
-        public Passport(BigInteger Id, string Issued_By_Whom, DateTime DateOfIssue, string DivisionCode, string Series,
+        public List<PassportPhoto> Photos { get; set; }
+        public Passport(int Id, string Issued_By_Whom, DateTime DateOfIssue, string DivisionCode, string Series,
             string Number, string FIO, bool Sex, DateTime DateOfBirth, string PlaceOfBirth, string ResidenceAddress)
         {
             this.Id = Id;
@@ -235,5 +261,20 @@ namespace car_insurance_mob.Models
         //}
         ///DELETE PASSPORT///
         ////////////////////////////////////////////////////////////////////////////////////////
+    }
+    public class PassportPhoto
+    {
+        [JsonProperty("DateDel")]
+        public DateTime date_delete { get; set; }
+        [JsonProperty("photo_path")]
+        public String photo_path { get; set; }
+        public PassportPhoto()
+        {
+
+        }
+        public PassportPhoto(String photo_path)
+        {
+            this.photo_path = photo_path;
+        }
     }
 }

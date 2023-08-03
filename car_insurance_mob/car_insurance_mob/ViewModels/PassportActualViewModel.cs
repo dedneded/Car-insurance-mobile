@@ -12,9 +12,11 @@ namespace car_insurance_mob.ViewModels
     class PassportActualViewModel : BaseViewModel
     {
         private PassportService _passportservice;
-        public Guid passportId;
-        private Guid id;
-        public Guid Id
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        private int _clientId;
+        private int id;
+        public int Id
         {
             get { return id; }
             set
@@ -129,22 +131,22 @@ namespace car_insurance_mob.ViewModels
         public ICommand AllPasportsCommand { get; private set; }
 
 
-        public PassportActualViewModel(PassportService _passportservice)
+        public PassportActualViewModel(PassportService _passportservice, EmployeeService _employeeService, ClientService _clientService)
         {
             this._passportservice = _passportservice;
-            AddPasportCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new AddPassportPage()));
+            this._employeeService = _employeeService;
+            this._clientService = _clientService;
+            AddPasportCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new AddPassportPage(_clientId)));
             AllPasportsCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new PassportsListPage()));
 
             
 
         }
-        public void FillInfo(Guid passportid)
+        public void FillInfo(Passport passport, int clientId)
         {
-
-            Passport passport = _passportservice.GetPassport(passportid);
-
-            Id = passportid;
-            //Issued_By_Whom = passport.Issued_By_Whom;
+            this._clientId = clientId;
+            Id = passport.Id;
+            Issued_By_Whom = passport.IssuedByWhom;
             DateOfIssue = passport.DateOfIssue;
             DivisionCode = passport.DivisionCode;
             Series = passport.Series;

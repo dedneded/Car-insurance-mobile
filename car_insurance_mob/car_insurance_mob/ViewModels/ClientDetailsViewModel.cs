@@ -16,6 +16,8 @@ namespace car_insurance_mob.ViewModels
     {
         private EmployeeService _employeeservice;
         private ClientService _clientservice;
+        private PassportService _passportservice;
+        private int _clientId;
         public BigInteger? clientId;
         private BigInteger? id;
         public BigInteger? Id
@@ -91,6 +93,7 @@ namespace car_insurance_mob.ViewModels
             Email = client.Email;
             Phone = client.Phone;
             Id = client.Id;
+            _clientId = client.Id;
             DateAdd = client.DateAdd.ToString();
             if (client.DateDel == DateTime.MinValue)
             {
@@ -100,19 +103,27 @@ namespace car_insurance_mob.ViewModels
 
         }
 
-        public ClientDetailsViewModel(ClientService clientservice, EmployeeService employeeService)
+        public ClientDetailsViewModel(ClientService clientservice, EmployeeService employeeService, PassportService passportService)
         {
             _employeeservice = employeeService;
             _clientservice = clientservice;
+            _passportservice = passportService;
             EditClientCommand = new Command(EditClient);
             string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
             Guid idTest = new Guid(str);
-            GetPasportsCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new PassportActualPage(idTest)));
+            GetPasportsCommand = new Command(GetPasports);
             GetLicensesCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new LicenseActualPage(idTest)));
             GetCarsCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage()));
         }
         private void EditClient()
         {
+
+        }
+        async void GetPasports()
+        {
+            Passport passport  = await _passportservice.GetActualPassport(_clientservice, _employeeservice, _clientId);
+            await Application.Current.MainPage.Navigation.PushAsync(new PassportActualPage(passport, _clientId));
+
 
         }
     }

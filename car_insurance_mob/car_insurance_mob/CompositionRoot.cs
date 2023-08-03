@@ -18,12 +18,12 @@ namespace car_insurance_mob
 
         public ClientsListViewModel ClientsListViewModel => new ClientsListViewModel(clientService, employeeService);
         
-        public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService, employeeService);
-        public PassportActualViewModel PassportActualViewModel => new PassportActualViewModel(passportService);
+        public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService, employeeService, passportService);
+        public PassportActualViewModel PassportActualViewModel => new PassportActualViewModel(passportService, employeeService, clientService);
 
         public PassportDetailsViewModel PassportDetailsViewModel => new PassportDetailsViewModel(passportService);
         public PassportsListViewModel PassportsListViewModel => new PassportsListViewModel(passportService);
-        public AddPassportViewModel AddPassportViewModel => new AddPassportViewModel(passportService);
+        public AddPassportViewModel AddPassportViewModel => new AddPassportViewModel(passportService, clientService, employeeService);
         public LicenseActualViewModel LicenseActualViewModel => new LicenseActualViewModel(licenseService);
 
         public LicenseDetailsViewModel LicenseDetailsViewModel => new LicenseDetailsViewModel(licenseService);
