@@ -39,10 +39,10 @@ namespace car_insurance_mob.ViewModels
         public PassportsListViewModel(PassportService passportservice)
         {
             _passportservice = passportservice;
-            //List<Passport> passports = _passportservice.GetAllPassports();
-            //AllPassports = new ObservableCollection<Passport>(passports);
-            //SortIcon = "⇑⇓";
-            //ApplySortCommand = new Command(ApplySort);
+            List<Passport> passports = _passportservice.GetAllPassports();
+            AllPassports = new ObservableCollection<Passport>(passports);
+            SortIcon = "⇑⇓";
+            ApplySortCommand = new Command(ApplySort);
         }
 
         private void ApplySort()

@@ -5,7 +5,7 @@
              Title="Список паспортов"
              BindingContext="{Binding PassportsListViewModel,Source={StaticResource CompositionRoot}}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Добавить" />
+        
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

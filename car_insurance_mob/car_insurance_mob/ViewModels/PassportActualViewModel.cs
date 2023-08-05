@@ -137,9 +137,9 @@ namespace car_insurance_mob.ViewModels
             this._employeeService = _employeeService;
             this._clientService = _clientService;
             AddPasportCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new AddPassportPage(_clientId)));
-            AllPasportsCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new PassportsListPage()));
+            AllPasportsCommand = new Command(AllPasports);
 
-            
+
 
         }
         public void FillInfo(Passport passport, int clientId)
@@ -158,6 +158,14 @@ namespace car_insurance_mob.ViewModels
             ResidenceAddress = passport.ResidenceAddress;
 
         }
-       
+        public async void AllPasports()
+        {
+            List<Passport> passports = await _passportservice.GetAllPassportsAsync(_clientService, _employeeService);
+            _passportservice.passports = passports;
+            await Application.Current.MainPage.Navigation.PushAsync(new PassportsListPage());
+
+        }
+
+
     }
 }

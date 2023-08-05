@@ -5,15 +5,19 @@ using car_insurance_mob.Models;
 using car_insurance_mob.Services;
 using static Xamarin.Essentials.Permissions;
 using Xamarin.Essentials;
+using System.Windows.Input;
+using Xamarin.Forms;
+using car_insurance_mob.Views;
 
 namespace car_insurance_mob.ViewModels
 {
     internal class PassportDetailsViewModel : BaseViewModel
     {
         private PassportService _passportservice;
-        public Guid passportId;
-        private Guid id;
-        public Guid Id
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        private int id;
+        public int Id
         {
             get { return id; }
             set
@@ -124,17 +128,34 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-        public PassportDetailsViewModel(PassportService _passportservice)
+        private string del;
+        public string Del
+        {
+            get { return del; }
+            set
+            {
+                del = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICommand DelPassportCommand { get; private set; }
+
+        public PassportDetailsViewModel(PassportService _passportservice, ClientService _clientService, EmployeeService _employeeService)
         {
             this._passportservice = _passportservice;
+            this._clientService = _clientService;
+            this._employeeService = _employeeService;
+            DelPassportCommand = new Command(DelPassport);
+
         }
-        public void FillInfo(Guid passportid)
+        public async void FillInfo(int passportId)
         {
 
-            Passport passport = _passportservice.GetPassport(passportid);
+            Passport passport = await _passportservice.GetPassportAsync(passportId, _clientService, _employeeService);
            
-            Id = passportid;
-            //Issued_By_Whom = passport.Issued_By_Whom;
+            Id = passport.Id;
+            passportId = Id;
+            Issued_By_Whom = passport.IssuedByWhom;
             DateOfIssue = passport.DateOfIssue;
             DivisionCode = passport.DivisionCode;
             Series = passport.Series;
@@ -144,6 +165,25 @@ namespace car_insurance_mob.ViewModels
             DateOfBirth = passport.DateOfBirth;
             PlaceOfBirth = passport.PlaceOfBirth;
             ResidenceAddress = passport.ResidenceAddress;
+            try
+            {
+                if (passport.DateDel != DateTime.MinValue)
+                {
+                    Del = "Удален"+" "+passport.DateDel.ToString();
+                }
+            }
+            catch {
+                
+            }
+           
+           
+           
+        }
+        public async void DelPassport()
+        {
+            await _passportservice.DeletePassportAsync(Id);
+            await Application.Current.MainPage.Navigation.PushAsync(new PassportDetailsPage(Id));
+
 
         }
     }

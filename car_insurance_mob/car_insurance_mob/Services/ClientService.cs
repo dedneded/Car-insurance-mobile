@@ -56,34 +56,6 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        //public async Task<Client> GetClientAsync(int clientId)
-        //{
-        //    var url = $"{baseUrl}clients/get_client/{clientId}/";
-
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        var response = await httpClient.GetAsync(url);
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var jsonContent = await response.Content.ReadAsStringAsync();
-        //            // Создаем новый объект Client с пустыми полями
-        //            var client = new Client
-        //            {
-        //                Employee = new Employee()
-        //            };
-        //            // Устанавливаем только ID сотрудника из JSON
-        //            var jsonObject = JObject.Parse(jsonContent);
-        //            client.Employee.Id = jsonObject.Value<int>("Employee");
-        //            //var client = JsonConvert.DeserializeObject<Client>(jsonContent);
-        //            return client;
-        //        }
-        //        else
-        //        {
-        //            throw new Exception($"HTTP request failed with status code {response.StatusCode}");
-        //        }
-        //    }
-        //}
         public async Task<Client> GetClientAsync(int clientId, EmployeeService _employeeService)
         {
             var url = $"{baseUrl}clients/get_client/{clientId}/";

@@ -14,7 +14,7 @@ namespace car_insurance_mob.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PassportDetailsPage : ContentPage
     {
-        public PassportDetailsPage(Guid passportId)
+        public PassportDetailsPage(int passportId)
         {
             InitializeComponent();
             (this.BindingContext as PassportDetailsViewModel).FillInfo(passportId);

@@ -5,7 +5,7 @@
              Title="Просмотр паспорта"
              BindingContext="{Binding PassportDetailsViewModel,Source={StaticResource CompositionRoot}}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Удалить" />
+        <ToolbarItem Text="Удалить" Command="{Binding DelPassportCommand}"/>
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -25,7 +25,7 @@
                         <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Изменить" 
                             HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
                         <StackLayout Orientation="Horizontal"  Margin="0,5">
-                            <Label Text="Id:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold" />
+                            <Label Text="Id:" FontSize="16" WidthRequest="80" VerticalTextAlignment="Center" FontAttributes="Bold" />
                             <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center" Margin="50,0,0,0"/>
                         </StackLayout>
 
@@ -69,19 +69,15 @@
                             <Label Text="Адрес прописки" FontSize="16" WidthRequest="125" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Label Text="{Binding ResidenceAddress}" FontSize="16" VerticalTextAlignment="Center" />
                         </StackLayout>
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="{Binding Del}"
+                                FontSize="Medium"
+                                TextColor="Red"/>    
+                        </StackLayout>
                         
 
                     </StackLayout>
                 </ScrollView>
-                
-
-                <StackLayout Grid.Row="1" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Добавить паспорт" HorizontalOptions="FillAndExpand" />
-                </StackLayout>
-
-                <StackLayout Grid.Row="3" VerticalOptions="End" HorizontalOptions="FillAndExpand">
-                    <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1"  Text="Все паспорта" HorizontalOptions="FillAndExpand" />
-                </StackLayout>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

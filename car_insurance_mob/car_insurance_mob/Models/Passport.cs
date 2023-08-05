@@ -42,6 +42,9 @@ namespace car_insurance_mob.Models
         [JsonProperty("ResidenceAddress")]
 
         public string ResidenceAddress { get; set; }
+        [JsonProperty("DateDel")]
+
+        public DateTime DateDel { get; set; }
         [JsonProperty("Client")]
 
         public Client Client { get; set; }

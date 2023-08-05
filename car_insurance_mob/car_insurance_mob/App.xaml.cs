@@ -14,14 +14,14 @@ namespace car_insurance_mob
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new AuthentificationPage());
-            
+            MainPage = new NavigationPage(new AuthentificationPage());            
+
 
 
 
 
         }
-      
+
         protected override void OnStart()
         {
         }

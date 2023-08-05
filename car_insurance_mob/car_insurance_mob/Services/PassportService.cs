@@ -13,7 +13,7 @@ namespace car_insurance_mob.Services
     public class PassportService
     {
         public readonly string baseUrl = "https://www.myprojectcarinsurance.ru/";
-
+        public List<Passport> passports;
         public async Task<string> CreatePassportAsync(Passport passport)
         {
             var url = $"{baseUrl}passports/create_passport/";
@@ -80,7 +80,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public async Task<Passport> GetPassportAsync(int passportId)
+        public async Task<Passport> GetPassportAsync(int passportId, ClientService clientService, EmployeeService employeeService)
         {
             var url = $"{baseUrl}passports/get_passport/{passportId}/";
 
@@ -98,7 +98,26 @@ namespace car_insurance_mob.Services
                     };
                     // Устанавливаем только ID клиента из JSON
                     var jsonObject = JObject.Parse(jsonContent);
-                    passport.Client.Id = jsonObject.Value<int>("Client");
+                    passport.Id = jsonObject.Value<int>("id");
+                    passport.Client = await clientService.GetClientAsync(jsonObject.Value<int>("Client"), employeeService);
+                    passport.DateOfIssue = jsonObject.Value<DateTime>("DateOfIssue");
+                    passport.IssuedByWhom = jsonObject.Value<string>("IssuedByWhom");
+                    passport.DivisionCode = jsonObject.Value<string>("DivisionCode");
+                    passport.Series = jsonObject.Value<string>("Series");
+                    passport.Number = jsonObject.Value<string>("Number");
+                    passport.FIO = jsonObject.Value<string>("Series");
+                    passport.IsMale = jsonObject.Value<bool>("IsMale");
+                    passport.DateOfBirth = jsonObject.Value<DateTime>("DateOfBirth");
+                    passport.PlaceOfBirth = jsonObject.Value<string>("Series");
+                    passport.ResidenceAddress = jsonObject.Value<string>("ResidenceAddress");
+                    try
+                    {
+                        passport.DateDel = jsonObject.Value<DateTime>("DateDel");
+                    }
+                    catch
+                    {
+
+                    }
                     return passport;
 
                 }
@@ -150,7 +169,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public async Task<List<Passport>> GetAllPassportsAsync()
+        public async Task<List<Passport>> GetAllPassportsAsync(ClientService clientService, EmployeeService employeeService)
         {
             var url = $"{baseUrl}passports/";
 
@@ -185,8 +204,8 @@ namespace car_insurance_mob.Services
 
                         int clientId = jsonClient.Value<int>("Client");
 
-                        //Client client = await ClientService.GetClientAsync(clientId);
-                        //passport.Client = client;
+                        Client client = await clientService.GetClientAsync(clientId, employeeService);
+                        passport.Client = client;
 
                         passports.Add(passport);
                     }
@@ -237,10 +256,10 @@ namespace car_insurance_mob.Services
             //}
             return passport;
         }
-        //public List<Passport> GetAllPassports()
-        //{
-        //    return passports;
-        //}
+        public List<Passport> GetAllPassports()
+        {
+            return passports;
+        }
         public bool AddPassport(Passport passport)
         {
             return true;

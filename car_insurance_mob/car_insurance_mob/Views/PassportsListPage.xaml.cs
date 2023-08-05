@@ -21,12 +21,12 @@ namespace car_insurance_mob.Views
         private async void OnPassportTapped(object sender, ItemTappedEventArgs e)
         {
 
-            //if (e.Item != null)
-            //{
-            //    var passport = (Passport)e.Item;
+            if (e.Item != null)
+            {
+                var passport = (Passport)e.Item;
 
-            //    await Navigation.PushAsync(new PassportDetailsPage(passport.Id));
-            //}
+                await Navigation.PushAsync(new PassportDetailsPage(passport.Id));
+            }
         }
     }
 }
