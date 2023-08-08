@@ -1,42 +1,48 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace car_insurance_mob.Models
 {
-    class License
+    public class License
     {
-        public Guid Id { get; set; }
+        [JsonProperty("id")]
+
+        public int Id { get; set; }
+        [JsonProperty("DateOfIssue")]
+
         public DateTime DateOfIssue { get; set; }
+        [JsonProperty("ExpirationDate")]
+
         public DateTime ExpirationDate { get; set; }
+        [JsonProperty("CodeGIBDD")]
+
         public string CodeGIBDD { get; set; }
+        [JsonProperty("Series")]
+
         public string Series { get; set; }
+        [JsonProperty("Number")]
+
 
         public string Number { get; set; }
+        [JsonProperty("TransmissionType")]
+
         public string TransmissionType { get; set; }
+        [JsonProperty("VehicleCategories")]
+
         public string VehicleCategories { get; set; }
-        public string PhotoPath { get; set; }
+        [JsonProperty("Client")]
+
         public Client Client { get; set; }
+        [JsonProperty("DateDel")]
 
-        public License(Guid Id, DateTime DateOfIssue, DateTime ExpirationDate, string CodeGIBDD,
-            string Series, string Number, string TransmissionType, string VehicleCategories,
-            string PhotoPath="")
-        {
-            this.Id = Id;
-            this.DateOfIssue = DateOfIssue;
-            this.ExpirationDate = ExpirationDate;
-            this.CodeGIBDD = CodeGIBDD;
-            this.Series = Series;
-            this.Number = Number;
-            this.TransmissionType = TransmissionType;
-            this.VehicleCategories = VehicleCategories;
-            this.PhotoPath = PhotoPath;
+        public DateTime DateDel { get; set; }
 
-
-        }
         public License()
         {
-            
+
         }
         /// ///CREATE LICENSE///
         //static async Task Main(string[] args)

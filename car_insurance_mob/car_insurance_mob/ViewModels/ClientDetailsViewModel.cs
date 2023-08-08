@@ -17,6 +17,8 @@ namespace car_insurance_mob.ViewModels
         private EmployeeService _employeeservice;
         private ClientService _clientservice;
         private PassportService _passportservice;
+        private LicenseService _licenseservice;
+        private CarService _carservice;
         private int _clientId;
         public BigInteger? clientId;
         private BigInteger? id;
@@ -103,17 +105,20 @@ namespace car_insurance_mob.ViewModels
 
         }
 
-        public ClientDetailsViewModel(ClientService clientservice, EmployeeService employeeService, PassportService passportService)
+        public ClientDetailsViewModel(ClientService clientservice, EmployeeService employeeService, PassportService passportService,
+            LicenseService licenseService, CarService carService)
         {
             _employeeservice = employeeService;
             _clientservice = clientservice;
             _passportservice = passportService;
+            _licenseservice = licenseService;
+            _carservice = carService;
             EditClientCommand = new Command(EditClient);
             string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
             Guid idTest = new Guid(str);
             GetPasportsCommand = new Command(GetPasports);
-            GetLicensesCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new LicenseActualPage(idTest)));
-            GetCarsCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage()));
+            GetLicensesCommand = new Command(GetLicenses);
+            GetCarsCommand = new Command(GetCars);
         }
         private void EditClient()
         {
@@ -125,6 +130,19 @@ namespace car_insurance_mob.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(new PassportActualPage(passport, _clientId));
 
 
+        }
+        async void GetLicenses()
+        {
+            License license = await _licenseservice.GetActualLicense(_clientservice, _employeeservice, _clientId);
+            await Application.Current.MainPage.Navigation.PushAsync(new LicenseActualPage(license, _clientId));
+
+
+        }
+        public async void GetCars()
+        {
+            List<Car> cars = await _carservice.GetAllCarsAsync(_clientservice, _employeeservice);
+            _carservice.cars = cars;
+            await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage());
         }
     }
 }

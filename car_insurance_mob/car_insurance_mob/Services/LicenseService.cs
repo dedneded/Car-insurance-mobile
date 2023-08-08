@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,9 +12,9 @@ namespace car_insurance_mob.Services
 {
     class LicenseService
     {
-        private static readonly string baseUrl = "http://127.0.0.1:8000/";
-
-        public static async Task<string> CreateLicenseAsync(License license)
+        public readonly string baseUrl = "https://www.myprojectcarinsurance.ru/";
+        public List<License> licenses;
+        public async Task<string> CreateLicenseAsync(License license)
         {
             var url = $"{baseUrl}licenses/create_license/";
             var jsonContent = JsonConvert.SerializeObject(new
@@ -43,7 +44,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<License> GetLicenseAsync(int licenseId)
+        public async Task<License> GetLicenseAsync(int licenseId, ClientService clientService, EmployeeService employeeService)
         {
             var url = $"{baseUrl}licenses/get_license/{licenseId}/";
 
@@ -61,7 +62,23 @@ namespace car_insurance_mob.Services
                     };
                     // Устанавливаем только ID клиента из JSON
                     var jsonObject = JObject.Parse(jsonContent);
-                    license.Client.Id = jsonObject.Value<int>("Client");
+                    license.Id = jsonObject.Value<int>("id");
+                    license.DateOfIssue = jsonObject.Value<DateTime>("DateOfIssue");
+                    license.ExpirationDate = jsonObject.Value<DateTime>("ExpirationDate");
+                    license.CodeGIBDD = jsonObject.Value<string>("CodeGIBDD");
+                    license.Series = jsonObject.Value<string>("Series");
+                    license.Number = jsonObject.Value<string>("Number");
+                    license.TransmissionType = jsonObject.Value<string>("TransmissionType");
+                    license.VehicleCategories = jsonObject.Value<string>("VehicleCategories");
+                    try
+                    {
+                        license.DateDel = jsonObject.Value<DateTime>("DateDel");
+                    }
+                    catch
+                    {
+
+                    }
+                    license.Client = await clientService.GetClientAsync(jsonObject.Value<int>("Client"), employeeService);
                     return license;
 
                 }
@@ -71,7 +88,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<string> UpdateLicenseAsync(License license)
+        public async Task<string> UpdateLicenseAsync(License license)
         {
             var url = $"{baseUrl}licenses/update_license/{license.Id}/";
             var jsonContent = JsonConvert.SerializeObject(new
@@ -101,7 +118,53 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<List<License>> GetAllLicensesAsync()
+        public async Task<License> GetActualLicense(ClientService _clientService, EmployeeService _employeeService, int clientId)
+        {
+            var url = $"{baseUrl}licenses/get_actual_license/{clientId}";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    // Создаем новый объект License с пустыми полями
+                    var license = new License
+                    {
+                        Client = new Client()
+                    };
+                    // Устанавливаем только ID клиента из JSON
+                    var jsonObject = JObject.Parse(jsonContent);
+                    license.Id = jsonObject.Value<int>("id");
+                    license.DateOfIssue = jsonObject.Value<DateTime>("DateOfIssue");
+                    license.ExpirationDate = jsonObject.Value<DateTime>("ExpirationDate");
+                    license.CodeGIBDD = jsonObject.Value<string>("CodeGIBDD");
+                    license.Series = jsonObject.Value<string>("Series");
+                    license.Number = jsonObject.Value<string>("Number");
+                    license.TransmissionType = jsonObject.Value<string>("TransmissionType");
+                    license.VehicleCategories = jsonObject.Value<string>("VehicleCategories");
+                    try
+                    {
+                        license.DateDel = jsonObject.Value<DateTime>("DateDel");
+                    }
+                    catch
+                    {
+
+                    }
+                    license.Client = await _clientService.GetClientAsync(jsonObject.Value<int>("Client"), _employeeService);
+
+
+                    return license;
+
+                }
+                else
+                {
+                    throw new Exception($"Failed to retrieve passport. Status code: {response.StatusCode}");
+                }
+            }
+        }
+        public async Task<List<License>> GetAllLicensesAsync(ClientService clientService, EmployeeService employeeService)
         {
             var url = $"{baseUrl}licenses/";
 
@@ -119,7 +182,7 @@ namespace car_insurance_mob.Services
                     {
                         License license = new License
                         {
-                            //Id = jsonClient.Value<Int64>("id"),
+                            Id = jsonClient.Value<int>("id"),
                             DateOfIssue = jsonClient.Value<DateTime>("DateOfIssue"),
                             ExpirationDate = jsonClient.Value<DateTime>("ExpirationDate"),
                             CodeGIBDD = jsonClient.Value<string>("CodeGIBDD"),
@@ -128,14 +191,11 @@ namespace car_insurance_mob.Services
                             TransmissionType = jsonClient.Value<string>("TransmissionType"),
                             VehicleCategories = jsonClient.Value<string>("VehicleCategories"),
 
-
-
                         };
-
                         int clientId = jsonClient.Value<int>("Client");
 
-                        //Client client = await ClientService.GetClientAsync(clientId);
-                        //license.Client = client;
+                        Client client = await clientService.GetClientAsync(clientId, employeeService);
+                        license.Client = client;
 
                         licenses.Add(license);
                     }
@@ -147,35 +207,28 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
-        public static Guid idTest = new Guid(str);
-        public static License license1 = new License(idTest, DateTime.Now, DateTime.Now,"10328", "1111", "102313", "C", "dasdas", "path");
-        public static License license2 = new License(Guid.NewGuid(), DateTime.Now, DateTime.Now, "10328", "2222", "102313", "C", "dasdas", "path");
-        public static License license3 = new License(Guid.NewGuid(), DateTime.Now, DateTime.Now, "10328", "3333", "102313", "C", "dasdas", "path");
-        public static License license4 = new License(Guid.NewGuid(), DateTime.Now, DateTime.Now, "10328", "4444", "102313", "C", "dasdas", "path");
-        public List<License> licenses = new List<License> { license1, license2, license3, license4 };
-        public LicenseService() { }
-        public License GetLicense(Guid id)
+        public async Task<string> DeleteLicenseAsync(int licenseId)
         {
-            License license = null;
-            foreach (License i in licenses)
+            var url = $"{baseUrl}licenses/delete_license/{licenseId}/";
+
+            using (var httpClient = new HttpClient())
             {
-                if (i.Id == id)
+                var response = await httpClient.DeleteAsync(url);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    license = i;
+                    return await response.Content.ReadAsStringAsync();
                 }
-
-
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
             }
-            return license;
         }
+        public LicenseService() { }
         public List<License> GetAllLicenses()
         {
             return licenses;
-        }
-        public bool AddLicense(License license)
-        {
-            return true;
         }
     }
 }

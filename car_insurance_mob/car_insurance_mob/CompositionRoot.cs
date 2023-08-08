@@ -18,17 +18,17 @@ namespace car_insurance_mob
 
         public ClientsListViewModel ClientsListViewModel => new ClientsListViewModel(clientService, employeeService);
         
-        public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService, employeeService, passportService);
+        public ClientDetailsViewModel ClientDetailsViewModel => new ClientDetailsViewModel(clientService, employeeService, passportService, licenseService, carService);
         public PassportActualViewModel PassportActualViewModel => new PassportActualViewModel(passportService, employeeService, clientService);
 
         public PassportDetailsViewModel PassportDetailsViewModel => new PassportDetailsViewModel(passportService, clientService, employeeService);
         public PassportsListViewModel PassportsListViewModel => new PassportsListViewModel(passportService);
         public AddPassportViewModel AddPassportViewModel => new AddPassportViewModel(passportService, clientService, employeeService);
-        public LicenseActualViewModel LicenseActualViewModel => new LicenseActualViewModel(licenseService);
+        public LicenseActualViewModel LicenseActualViewModel => new LicenseActualViewModel(licenseService, clientService, employeeService);
 
-        public LicenseDetailsViewModel LicenseDetailsViewModel => new LicenseDetailsViewModel(licenseService);
+        public LicenseDetailsViewModel LicenseDetailsViewModel => new LicenseDetailsViewModel(licenseService, clientService, employeeService);
         public LicensesListViewModel LicensesListViewModel => new LicensesListViewModel(licenseService);
-        public AddLicenseViewModel AddLicenseViewModel => new AddLicenseViewModel(licenseService);
+        public AddLicenseViewModel AddLicenseViewModel => new AddLicenseViewModel(licenseService, clientService, employeeService);
         public CarsListViewModel CarsListViewModel => new CarsListViewModel(carService);
 
         public CarDetailsViewModel CarDetailsViewModel => new CarDetailsViewModel(carService);        

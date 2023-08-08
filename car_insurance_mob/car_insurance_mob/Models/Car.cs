@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -7,36 +9,85 @@ namespace car_insurance_mob.Models
 {
     public class Car
     {
-        public Guid Id { get; set; }
+        [JsonProperty("id")]
+
+        public int Id { get; set; }
+        [JsonProperty("RegistrationNumber")]
 
         public string RegistrationNumber { get; set; }
+        [JsonProperty("IdNumber")]
+
         public string IdNumber { get; set; }
+        [JsonProperty("Brand")]
+
         public string Brand { get; set; }
+        [JsonProperty("Model")]
+
         public string Model { get; set; }
+        [JsonProperty("TCType")]
+
         public string TCType { get; set; }
+        [JsonProperty("TCCategory")]
+
         public string TCCategory { get; set; }
+        [JsonProperty("YearOfIssue")]
+
         public int YearOfIssue { get; set; }
+        [JsonProperty("EngineModel")]
+
         public string EngineModel { get; set; }
+        [JsonProperty("EngineNumber")]
+
         public string EngineNumber { get; set; }
+        [JsonProperty("ChassisNumber")]
+
         public string ChassisNumber { get; set; }
+        [JsonProperty("CarBodyNumber")]
+
         public string CarBodyNumber { get; set; }
+        [JsonProperty("Color")]
+
         public string Color { get; set; }
+        [JsonProperty("EnginePower")]
+
         public string EnginePower { get; set; }
+        [JsonProperty("EngineDisplacement")]
+
         public int EngineDisplacement { get; set; }
+        [JsonProperty("Series")]
+
         public string Series { get; set; }
+        [JsonProperty("Number")]
+
         public string Number { get; set; }
+        [JsonProperty("MaxWeightPermitted")]
+
 
         public int MaxWeightPermitted { get; set; }
+        [JsonProperty("WeightWithoutCapacity")]
+
         public int WeightWithoutCapacity { get; set; }
+        [JsonProperty("NameOwner")]
+
         public string NameOwner { get; set; }
+        [JsonProperty("PlaceRegistration")]
+
         public string PlaceRegistration { get; set; }
+        [JsonProperty("PlaceOfIssue")]
 
         public string PlaceOfIssue { get; set; }
-        public DateTime DateOfIssue { get; set; }
-        public string photo_path { get; set; } = "";
-        public Client Client { get; set; }
+        [JsonProperty("DateOfIssue")]
 
-        public Car(Guid Id, string RegistrationNumber, string IdNumber, string Brand, string Model,
+        public DateTime DateOfIssue { get; set; }
+        [JsonProperty("Client")]
+
+        public Client Client { get; set; }
+        [JsonProperty("DateDel")]
+
+        public DateTime DateDel { get; set; }
+
+
+        public Car(int Id, string RegistrationNumber, string IdNumber, string Brand, string Model,
             string TCType, string TCCategory, int YearOfIssue, string EngineModel,
             string EngineNumber, string ChassisNumber, string CarBodyNumber, string Color,
             string EnginePower, int EngineDisplacement, string Series, string Number,

@@ -14,7 +14,7 @@ namespace car_insurance_mob.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LicenseDetailsPage : ContentPage
 	{
-		public LicenseDetailsPage (Guid licenseId)
+		public LicenseDetailsPage (int licenseId)
         {
 			InitializeComponent ();
             (this.BindingContext as LicenseDetailsViewModel).FillInfo(licenseId);

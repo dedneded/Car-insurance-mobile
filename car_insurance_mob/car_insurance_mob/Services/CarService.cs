@@ -11,9 +11,9 @@ namespace car_insurance_mob.Services
 {
     public class CarService
     {
-        private static readonly string baseUrl = "http://127.0.0.1:8000/";
-
-        public static async Task<string> CreateCarAsync(Car car)
+        public readonly string baseUrl = "https://www.myprojectcarinsurance.ru/";
+        public List<Car> cars;
+        public async Task<string> CreateCarAsync(Car car)
         {
             var url = $"{baseUrl}cars/create_car/";
             var jsonContent = JsonConvert.SerializeObject(new
@@ -58,7 +58,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<string> UpdateCarAsync(Car car)
+        public async Task<string> UpdateCarAsync(Car car)
         {
             var url = $"{baseUrl}cars/update_car/{car.Id}/";
             var jsonContent = JsonConvert.SerializeObject(new
@@ -103,7 +103,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static async Task<List<Car>> GetAllCarsAsync()
+        public async Task<List<Car>> GetAllCarsAsync(ClientService clientService, EmployeeService employeeService)
         {
             var url = $"{baseUrl}cars/";
 
@@ -121,7 +121,7 @@ namespace car_insurance_mob.Services
                     {
                         Car car = new Car
                         {
-                            //Id = jsonClient.Value<Int64>("id"),
+                            Id = jsonClient.Value<int>("id"),
                             RegistrationNumber = jsonClient.Value<string>("RegistrationNumber"),
                             IdNumber = jsonClient.Value<string>("IdNumber"),
                             Brand = jsonClient.Value<string>("Brand"),
@@ -148,9 +148,8 @@ namespace car_insurance_mob.Services
                         };
 
                         int clientId = jsonClient.Value<int>("Client");
-
-                        //Client client = await ClientService.GetClientAsync(clientId);
-                        //car.Client = client;
+                        Client client = await clientService.GetClientAsync(clientId, employeeService);
+                        car.Client = client;
 
                         cars.Add(car);
                     }
@@ -162,46 +161,11 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
-        public static Guid idTest = new Guid(str);
-        public static Car car1 = new Car(idTest, "P758AE", "WDE1400321A269616", "Мерседес Benz",
-            "9320", "Мерседес Benz 9320", "B", 1995, "model1", "10494422002105",
-            "1111", "11111", "Синий", "161/212", 3199, "72EX", "879845", 2380, 1780,
-            "Иванов Иван Иванович", "Иркутск, Ленина 11", "ГИБДД Иркутска", DateTime.Now);
-        public static Car car2 = new Car(Guid.NewGuid(), "K222MM", "WDE1400321A269616", "Мерседес Benz",
-            "9320", "Мерседес Benz 9320", "B", 1996, "model1", "10494422002105",
-            "2222", "22222", "Красный", "161/212", 3199, "72EX", "879845", 2380, 1780,
-            "Иванов Иван Иванович", "Иркутск, Ленина 11", "ГИБДД Иркутска", DateTime.Now);
-        public static Car car3 = new Car(Guid.NewGuid(), "H333AE", "WDE1400321A269616", "Мерседес Benz",
-            "9320", "Мерседес Benz 9320", "B", 1997, "model1", "10494422002105",
-            "3333", "33333", "Зеленый", "161/212", 3199, "72EX", "879845", 2380, 1780,
-            "Иванов Иван Иванович", "Иркутск, Ленина 11", "ГИБДД Иркутска", DateTime.Now);
-        public static Car car4 = new Car(Guid.NewGuid(), "С444AE", "WDE1400321A269616", "Мерседес Benz",
-            "9320", "Мерседес Benz 9320", "B", 1998, "model1", "10494422002105",
-            "4444", "44444", "Черный", "161/212", 3199, "72EX", "879845", 2380, 1780,
-            "Иванов Иван Иванович", "Иркутск, Ленина 11", "ГИБДД Иркутска", DateTime.Now);
-        public List<Car> cars = new List<Car> { car1, car2, car3, car4 };
-        public Car GetCar(Guid id)
-        {
-            Car car = null;
-            foreach (Car i in cars)
-            {
-                if (i.Id == id)
-                {
-                    car = i;
-                }
-
-
-            }
-            return car;
-        }
         public List<Car> GetAllCars()
         {
             return cars;
         }
-        public bool AddCar(Car car)
-        {
-            return true;
-        }
+
+
     }
 }

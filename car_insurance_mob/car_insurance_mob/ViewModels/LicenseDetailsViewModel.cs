@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using car_insurance_mob.Models;
 using car_insurance_mob.Services;
+using car_insurance_mob.Views;
+using Xamarin.Forms;
 
 namespace car_insurance_mob.ViewModels
 {
@@ -10,8 +13,11 @@ namespace car_insurance_mob.ViewModels
     {
         public Guid licenseId;
         private LicenseService _licenseService;
-        private Guid id;
-        public Guid Id
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        public int lisenceId; 
+        private int id;
+        public int Id
         {
             get { return id; }
             set
@@ -93,24 +99,55 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string del;
+        public string Del
+        {
+            get { return del; }
+            set
+            {
+                del = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICommand DelLicenseCommand { get; private set; }
         
-        
-        public LicenseDetailsViewModel(LicenseService licenseService)
+        public LicenseDetailsViewModel(LicenseService licenseService, ClientService clientService, EmployeeService employeeService)
         {
             _licenseService = licenseService;
+            _clientService = clientService;
+            _employeeService = employeeService;
+            DelLicenseCommand = new Command(DelLicense); 
         }
-        public void FillInfo(Guid licenseid)
+        public async void FillInfo(int licenseid)
         {
-            License license = _licenseService.GetLicense(licenseid);
-            Id = licenseid;
-            DateOfIssue = license.DateOfIssue;
-            ExpirationDate = license.ExpirationDate;
-            CodeGIBDD = license.CodeGIBDD;
-            Series = license.Series;
-            Number = license.Number;
-            TransmissionType = license.TransmissionType;
-            VehicleCategories = license.VehicleCategories;
-            
+
+            License lisence = await _licenseService.GetLicenseAsync(licenseid, _clientService, _employeeService);
+
+            Id = lisence.Id;
+            lisenceId = Id;
+            DateOfIssue = lisence.DateOfIssue;
+            ExpirationDate = lisence.ExpirationDate;
+            CodeGIBDD = lisence.CodeGIBDD;
+            Series = lisence.Series;
+            Number = lisence.Number;
+            TransmissionType = lisence.TransmissionType;
+            VehicleCategories = lisence.VehicleCategories;
+            try
+            {
+                if (lisence.DateDel != DateTime.MinValue)
+                {
+                    Del = "Удален" + " " + lisence.DateDel.ToString();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        public async void DelLicense()
+        {
+            await _licenseService.DeleteLicenseAsync(Id);
+            await Application.Current.MainPage.Navigation.PushAsync(new LicenseDetailsPage(Id));
         }
     }
 }

@@ -11,10 +11,14 @@ namespace car_insurance_mob.ViewModels
 {
     class LicenseActualViewModel : BaseViewModel
     {
-        public Guid licenseId;
+        private int _clientId;
+        public int licenseId;
         private LicenseService _licenseService;
-        private Guid id;
-        public Guid Id
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+
+        private int id;
+        public int Id
         {
             get { return id; }
             set
@@ -100,17 +104,19 @@ namespace car_insurance_mob.ViewModels
         public ICommand AddLicenseCommand { get; private set; }
         public ICommand AllLicensesCommand { get; private set; }
 
-        public LicenseActualViewModel(LicenseService licenseService)
+        public LicenseActualViewModel(LicenseService licenseService, ClientService clientService, EmployeeService employeeService)
         {
             _licenseService = licenseService;
-            AddLicenseCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new AddLicensePage()));
-            AllLicensesCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new LicensesListPage()));
+            _clientService = clientService;
+            _employeeService = employeeService;
+            AddLicenseCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new AddLicensePage(_clientId)));
+            AllLicensesCommand = new Command(AllLicenses);
 
         }
-        public void FillInfo(Guid licenseid)
+        public void FillInfo(License license, int clientId)
         {
-            License license = _licenseService.GetLicense(licenseid);
-            Id = licenseid;
+            this._clientId = clientId;
+            Id = license.Id;
             DateOfIssue = license.DateOfIssue;
             ExpirationDate = license.ExpirationDate;
             CodeGIBDD = license.CodeGIBDD;
@@ -118,7 +124,12 @@ namespace car_insurance_mob.ViewModels
             Number = license.Number;
             TransmissionType = license.TransmissionType;
             VehicleCategories = license.VehicleCategories;
-
+        }
+        public async void AllLicenses()
+        {
+            List<License> licenses = await _licenseService.GetAllLicensesAsync(_clientService, _employeeService);
+            _licenseService.licenses = licenses;
+            await Application.Current.MainPage.Navigation.PushAsync(new LicensesListPage());
         }
     }
 }

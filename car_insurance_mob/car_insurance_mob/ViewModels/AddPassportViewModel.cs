@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using car_insurance_mob.Models;
 using car_insurance_mob.Services;
+using car_insurance_mob.Views;
 using Xamarin.Forms;
 
 namespace car_insurance_mob.ViewModels
@@ -154,6 +155,9 @@ namespace car_insurance_mob.ViewModels
             passport.PlaceOfBirth = PlaceOfBirth;
             passport.ResidenceAddress = ResidenceAddress;
             await _passportService.CreatePassportAsync(passport);
+            List<Passport> passports = await _passportService.GetAllPassportsAsync(_clientService, _employeeService);
+            _passportService.passports = passports;
+            await Application.Current.MainPage.Navigation.PushAsync(new PassportsListPage());
         }
         public void TakePhoto()
         {

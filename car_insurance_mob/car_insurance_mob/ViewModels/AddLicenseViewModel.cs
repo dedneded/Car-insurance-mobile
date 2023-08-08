@@ -5,12 +5,16 @@ using System.Windows.Input;
 using car_insurance_mob.Services;
 using Xamarin.Forms;
 using car_insurance_mob.Models;
+using car_insurance_mob.Views;
 
 namespace car_insurance_mob.ViewModels
 {
     class AddLicenseViewModel : BaseViewModel
     {
         private LicenseService _licenseService;
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        public int clientId;
         private string series;
         public string Series
         {
@@ -83,18 +87,21 @@ namespace car_insurance_mob.ViewModels
         }
         public ICommand SaveLicenseCommand { get; private set; }
         public ICommand TakePhotoCommand { get; private set; }
-        public AddLicenseViewModel(LicenseService licenseService)
+        public AddLicenseViewModel(LicenseService licenseService, ClientService clientService, EmployeeService employeeService)
         {
             _licenseService = licenseService;
+            _clientService = clientService;
+            _employeeService = employeeService;
             DateOfIssue = DateTime.Today;
             ExpirationDate = DateTime.Today;
             TakePhotoCommand = new Command(TakePhoto);
             SaveLicenseCommand = new Command(SaveLicense);
         }
         private void TakePhoto() { }
-        private void SaveLicense()
+        private async void SaveLicense()
         {
             License license = new License();
+            license.Client = await _clientService.GetClientAsync(clientId, _employeeService);
             license.Number = Number;
             license.VehicleCategories = VehicleCategories;
             license.Series = Series;
@@ -102,9 +109,10 @@ namespace car_insurance_mob.ViewModels
             license.DateOfIssue = DateOfIssue;
             license.ExpirationDate = ExpirationDate;
             license.TransmissionType = TransmissionType;
-            _licenseService.AddLicense(license);
-
-
+            await _licenseService.CreateLicenseAsync(license);
+            List<License> licenses = await _licenseService.GetAllLicensesAsync(_clientService, _employeeService);
+            _licenseService.licenses = licenses;
+            await Application.Current.MainPage.Navigation.PushAsync(new LicensesListPage());
         }
     }
 }
