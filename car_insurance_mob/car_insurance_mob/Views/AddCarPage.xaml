@@ -63,11 +63,7 @@
                             <Entry Text="{Binding EngineModel}"  HorizontalOptions="FillAndExpand"/>
 
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal"  Margin="0,5">
-                            <Label Text="Двигатель №" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-                            <Entry Text="{Binding EngineNumber}"  HorizontalOptions="FillAndExpand"/>
-
-                        </StackLayout>
+                        
                         <StackLayout Orientation="Horizontal"  Margin="0,5">
                             <Label Text="Шасси №" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Entry Text="{Binding ChassisNumber}"  HorizontalOptions="FillAndExpand"/>
@@ -83,11 +79,7 @@
                             <Entry Text="{Binding Color}"  HorizontalOptions="FillAndExpand"/>
 
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal"  Margin="0,5">
-                            <Label Text="Цвет" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
-                            <Entry Text="{Binding Color}"  HorizontalOptions="FillAndExpand"/>
-
-                        </StackLayout>
+                       
                         <StackLayout Orientation="Horizontal"  Margin="0,5">
                             <Label Text="Мощность двигателя, кВТ/л" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Entry Text="{Binding EnginePower}"  HorizontalOptions="FillAndExpand"/>

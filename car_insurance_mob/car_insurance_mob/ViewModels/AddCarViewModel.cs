@@ -6,14 +6,19 @@ using car_insurance_mob.Services;
 using Xamarin.Forms;
 using car_insurance_mob.Models;
 using System.Threading.Tasks;
+using car_insurance_mob.Views;
 
 namespace car_insurance_mob.ViewModels
 {
     class AddCarViewModel : BaseViewModel
     {
         private CarService _carService;
-        private Guid id;
-        public Guid Id
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+
+        private int id;
+        int _clientId;
+        public int Id
         {
             get { return id; }
             set
@@ -246,22 +251,28 @@ namespace car_insurance_mob.ViewModels
         public ICommand TakePhotoCommand { get; private set; }
 
 
-        public AddCarViewModel(CarService carService)
+        public AddCarViewModel(CarService carService, ClientService clientService, EmployeeService employeeService)
         {
             _carService = carService;
+            _clientService = clientService;
+            _employeeService = employeeService;
             TakePhotoCommand = new Command(TakePhoto);
             SaveCarCommand = new Command(SaveLicense);
         }
+        public void FillId(int clientId)
+        {
+            _clientId = clientId;
+        }
         private void TakePhoto() { }
-        private void SaveLicense()
+        private async void SaveLicense()
         {
             Car car = new Car();
-            car.Id = Id;
+            car.Client = await _clientService.GetClientAsync(_clientId, _employeeService);
             car.Brand = Brand;
             car.CarBodyNumber = CarBodyNumber;
             car.ChassisNumber = ChassisNumber;
             car.Color = Color;
-            TCCategory = car.TCCategory;
+            car.TCCategory = TCCategory;
             car.EnginePower = EnginePower;
             car.EngineNumber = EngineNumber;
             car.IdNumber = IdNumber;
@@ -279,8 +290,10 @@ namespace car_insurance_mob.ViewModels
             car.WeightWithoutCapacity = WeightWithoutCapacity;
             car.NameOwner = NameOwner;
             car.DateOfIssue = DateOfIssue;
-            _carService.AddCar(car);
-
+            await _carService.CreateCarAsync(car);
+            List<Car> cars = await _carService.GetAllCarsAsync(_clientService, _employeeService);
+            _carService.cars = cars;
+            await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage(_clientId));
 
         }
     }

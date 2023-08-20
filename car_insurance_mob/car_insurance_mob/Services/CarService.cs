@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using car_insurance_mob.Models;
+using car_insurance_mob.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -58,6 +60,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
+
         public async Task<string> UpdateCarAsync(Car car)
         {
             var url = $"{baseUrl}cars/update_car/{car.Id}/";
@@ -161,11 +164,88 @@ namespace car_insurance_mob.Services
                 }
             }
         }
+        public async Task<Car> GetCarAsync(int carId, ClientService clientService, EmployeeService employeeService)
+        {
+            var url = $"{baseUrl}cars/get_car/{carId}/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    // Создаем новый объект Car с пустыми полями
+                    var car = new Car
+                    {
+                        Client = new Client()
+                    };
+                    // Устанавливаем только ID клиента из JSON
+                    var jsonObject = JObject.Parse(jsonContent);
+                    car.Id = jsonObject.Value<int>("id");
+                    car.Brand = jsonObject.Value<string>("Brand");
+                    car.CarBodyNumber = jsonObject.Value<string>("CarBodyNumber");
+                    car.ChassisNumber = jsonObject.Value<string>("ChassisNumber");
+                    car.TCCategory = jsonObject.Value<string>("TCCategory");
+                    car.Color = jsonObject.Value<string>("Color");
+                    car.TCCategory = jsonObject.Value<string>("TCCategory");
+                    car.EnginePower = jsonObject.Value<string>("EnginePower");
+                    car.IdNumber = jsonObject.Value<string>("IdNumber");
+                    car.RegistrationNumber = jsonObject.Value<string>("RegistrationNumber");
+                    car.Model = jsonObject.Value<string>("Model");
+                    car.TCType = jsonObject.Value<string>("TCType");
+                    car.YearOfIssue = jsonObject.Value<int>("YearOfIssue");
+                    car.PlaceRegistration = jsonObject.Value<string>("PlaceRegistration");
+                    car.PlaceOfIssue = jsonObject.Value<string>("PlaceOfIssue");
+                    car.EngineModel = jsonObject.Value<string>("EngineModel");
+                    car.EngineDisplacement = jsonObject.Value<int>("EngineDisplacement");
+                    car.Series = jsonObject.Value<string>("Series");
+                    car.Number = jsonObject.Value<string>("Number");
+                    car.MaxWeightPermitted = jsonObject.Value<int>("MaxWeightPermitted");
+                    car.WeightWithoutCapacity = jsonObject.Value<int>("WeightWithoutCapacity");
+                    car.NameOwner = jsonObject.Value<string>("NameOwner");
+                    car.DateOfIssue = jsonObject.Value<DateTime>("DateOfIssue");
+                    try
+                    {
+                        car.DateDel = jsonObject.Value<DateTime>("DateDel");
+                    }
+                    catch
+                    {
+
+                    }
+                    car.Client = await clientService.GetClientAsync(jsonObject.Value<int>("Client"), employeeService);
+                    return car;
+
+                }
+                else
+                {
+                    throw new Exception($"Failed to retrieve car. Status code: {response.StatusCode}");
+                }
+            }
+        }
+        public async Task<string> DeleteCarAsync(int carId)
+        {
+            var url = $"{baseUrl}cars/delete_car/{carId}/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
         public List<Car> GetAllCars()
         {
             return cars;
         }
-
+       
 
     }
 }

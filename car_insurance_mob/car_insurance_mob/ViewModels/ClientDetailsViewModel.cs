@@ -142,7 +142,7 @@ namespace car_insurance_mob.ViewModels
         {
             List<Car> cars = await _carservice.GetAllCarsAsync(_clientservice, _employeeservice);
             _carservice.cars = cars;
-            await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage(_clientId));
         }
     }
 }

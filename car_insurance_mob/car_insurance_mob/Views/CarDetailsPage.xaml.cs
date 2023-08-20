@@ -13,7 +13,7 @@ namespace car_insurance_mob.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CarDetailsPage : ContentPage
     {
-        public CarDetailsPage(Guid carId)
+        public CarDetailsPage(int carId)
         {
             InitializeComponent();
             (this.BindingContext as CarDetailsViewModel).FillInfo(carId);

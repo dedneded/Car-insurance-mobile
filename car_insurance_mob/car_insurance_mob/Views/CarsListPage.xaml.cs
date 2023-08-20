@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using car_insurance_mob.Models;
+using car_insurance_mob.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,9 +13,10 @@ namespace car_insurance_mob.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CarsListPage : ContentPage
     {
-        public CarsListPage()
+        public CarsListPage(int _clientId)
         {
             InitializeComponent();
+            (this.BindingContext as CarsListViewModel).FillId(_clientId);
         }
 
         private async void OnCarTapped(object sender, ItemTappedEventArgs e)

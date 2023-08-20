@@ -4,7 +4,7 @@
              x:Class="car_insurance_mob.Views.CarsListPage"
              BindingContext="{Binding CarsListViewModel,Source={StaticResource CompositionRoot}}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Добавить авто" />
+        <ToolbarItem Text="Добавить авто" Command="{Binding AddCarCommand}"/>
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

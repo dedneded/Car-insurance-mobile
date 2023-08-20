@@ -31,8 +31,8 @@ namespace car_insurance_mob
         public AddLicenseViewModel AddLicenseViewModel => new AddLicenseViewModel(licenseService, clientService, employeeService);
         public CarsListViewModel CarsListViewModel => new CarsListViewModel(carService);
 
-        public CarDetailsViewModel CarDetailsViewModel => new CarDetailsViewModel(carService);        
-        public AddCarViewModel AddCarViewModel => new AddCarViewModel(carService);
+        public CarDetailsViewModel CarDetailsViewModel => new CarDetailsViewModel(carService, clientService, employeeService);
+        public AddCarViewModel AddCarViewModel => new AddCarViewModel(carService, clientService, employeeService);
 
 
         public CompositionRoot()

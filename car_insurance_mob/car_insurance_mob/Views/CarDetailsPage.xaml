@@ -6,7 +6,7 @@
              BindingContext="{Binding CarDetailsViewModel,Source={StaticResource CompositionRoot}}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Удалить" />
+        <ToolbarItem Text="Удалить" Command="{Binding DelCarCommand}" IsEnabled="{Binding IsDeletedCommand}"/>
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -118,13 +118,14 @@
                             <Label Text="Дата выдачи" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold"/>
                             <Label Text="{Binding DateOfIssue}" FontSize="16" VerticalTextAlignment="Center" />
                         </StackLayout>
-                        
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="{Binding Del}"
+                                FontSize="Medium"
+                                TextColor="Red"/>
+                        </StackLayout>
 
                     </StackLayout>
                 </ScrollView>
-
-
-               
             </Grid>
         </StackLayout>
     </ContentPage.Content>

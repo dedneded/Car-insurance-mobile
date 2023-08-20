@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using car_insurance_mob.Services;
 using car_insurance_mob.Models;
+using Xamarin.Forms;
+using car_insurance_mob.Views;
+using System.Windows.Input;
+using System.ComponentModel;
+using System.Security.Cryptography;
+
 namespace car_insurance_mob.ViewModels
 {
     class CarDetailsViewModel : BaseViewModel
     {
         private CarService _carService;
-        public Guid carId;
-        private Guid id;
-        public Guid Id
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        public int carId;
+        private int id;
+        public int Id
         {
             get { return id; }
             set
@@ -239,15 +247,46 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-        
-        public CarDetailsViewModel(CarService carService)
+        private string del;
+        public string Del
+        {
+            get { return del; }
+            set
+            {
+                del = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _isDeleted;
+        public bool IsDeleted
+        {
+            get => _isDeleted;
+            set
+            {
+                _isDeleted = value;
+                OnPropertyChanged(); 
+            }
+        }
+        public ICommand DelCarCommand { get; private set; }
+
+        public CarDetailsViewModel(CarService carService, ClientService clientService, EmployeeService employeeService)
         {
             _carService = carService;
+            _clientService = clientService;
+            _employeeService = employeeService;
+            DelCarCommand = new Command(DelCar);
+            IsDeleted = true;
         }
-        public void FillInfo(Guid carId)
+        public async void DelCar()
         {
-            Car car = _carService.GetCar(carId);
+            await _carService.DeleteCarAsync(Id);
+            await Application.Current.MainPage.Navigation.PushAsync(new CarDetailsPage(Id));
+        }
+        
+        public async void FillInfo(int carId)
+        {
 
+            Car car = await _carService.GetCarAsync(carId, _clientService, _employeeService);
             Id = carId;
             Brand = car.Brand;
             CarBodyNumber = car.CarBodyNumber;
@@ -259,7 +298,7 @@ namespace car_insurance_mob.ViewModels
             IdNumber = car.IdNumber;
             RegistrationNumber = car.RegistrationNumber;
             Model = car.Model;
-            TCType = car.TCType; 
+            TCType = car.TCType;
             YearOfIssue = car.YearOfIssue;
             PlaceRegistration = car.PlaceRegistration;
             PlaceOfIssue = car.PlaceOfIssue;
@@ -271,7 +310,18 @@ namespace car_insurance_mob.ViewModels
             WeightWithoutCapacity = car.WeightWithoutCapacity;
             NameOwner = car.NameOwner;
             DateOfIssue = car.DateOfIssue;
-            
+            try
+            {
+                if (car.DateDel != DateTime.MinValue)
+                {
+                    Del = "Удален" + " " + car.DateDel.ToString();
+                    IsDeleted = false;
+                }
+            }
+            catch
+            {
+
+            }
 
 
         }

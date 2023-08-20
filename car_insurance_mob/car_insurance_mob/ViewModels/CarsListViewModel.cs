@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using car_insurance_mob.Models;
 using car_insurance_mob.Services;
+using car_insurance_mob.Views;
 using Xamarin.Forms;
 
 namespace car_insurance_mob.ViewModels
@@ -12,6 +13,7 @@ namespace car_insurance_mob.ViewModels
     class CarsListViewModel : BaseViewModel
     {
         int Clicked = 0;
+        int _clientId;
         private CarService _carService;
         private ObservableCollection<Car> allCars;
         public ObservableCollection<Car> AllCars
@@ -45,6 +47,7 @@ namespace car_insurance_mob.ViewModels
             }
         }
         public ICommand ApplySortCommand { get; private set; }
+        public ICommand AddCarCommand { get; private set; }
 
         public CarsListViewModel(CarService carService)
         {
@@ -54,7 +57,10 @@ namespace car_insurance_mob.ViewModels
             SortIcon = "⇑⇓";
             ApplyFiltersCommand = new Command(ApplyFilters);
             ApplySortCommand = new Command(ApplySort);
+            AddCarCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new AddCarPage(_clientId)));
+
         }
+       
         private void ApplyFilters()
         {
             Clicked += 1;
@@ -73,6 +79,10 @@ namespace car_insurance_mob.ViewModels
             ascendingSort = !ascendingSort;
             // Изменение иконки в зависимости от направления сортировки
             SortIcon = ascendingSort ? "⇑⇓" : "⇓⇑";
+        }
+        public void FillId(int clientId)
+        {
+            _clientId = clientId;
         }
     }
 }
