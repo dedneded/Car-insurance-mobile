@@ -24,6 +24,7 @@ namespace car_insurance_mob.Models
         public DateTime DateDel { get; set; }
         [JsonProperty("Employee")]
         public Employee Employee { get; set; }
+        public string Name { get; set; }
 
 
         public Client(string Phone, string Email, DateTime DateAdd, DateTime DateDel, Employee Employee)

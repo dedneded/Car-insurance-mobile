@@ -3,6 +3,7 @@ using car_insurance_mob.Services;
 using car_insurance_mob.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -15,6 +16,16 @@ namespace car_insurance_mob.ViewModels
         private ClientService _clientService;
         private EmployeeService _employeeService;
         private int _clientId;
+        private string error;
+        public string Error
+        {
+            get { return error; }
+            set
+            {
+                error = value;
+                OnPropertyChanged();
+            }
+        }
         private int id;
         public int Id
         {
@@ -145,17 +156,27 @@ namespace car_insurance_mob.ViewModels
         public void FillInfo(Passport passport, int clientId)
         {
             this._clientId = clientId;
-            Id = passport.Id;
-            Issued_By_Whom = passport.IssuedByWhom;
-            DateOfIssue = passport.DateOfIssue;
-            DivisionCode = passport.DivisionCode;
-            Series = passport.Series;
-            Number = passport.Number;
-            FIO = passport.FIO;
-            Sex = passport.IsMale ? "Мужчина" : "Женщина"; ;
-            DateOfBirth = passport.DateOfBirth;
-            PlaceOfBirth = passport.PlaceOfBirth;
-            ResidenceAddress = passport.ResidenceAddress;
+            if (passport.Id != 0)
+            {
+               
+                Id = passport.Id;
+                Issued_By_Whom = passport.IssuedByWhom;
+                DateOfIssue = passport.DateOfIssue;
+                DivisionCode = passport.DivisionCode;
+                Series = passport.Series;
+                Number = passport.Number;
+                FIO = passport.FIO;
+                Sex = passport.IsMale ? "Мужчина" : "Женщина"; ;
+                DateOfBirth = passport.DateOfBirth;
+                PlaceOfBirth = passport.PlaceOfBirth;
+                ResidenceAddress = passport.ResidenceAddress;
+            }
+            else
+            {
+                Error = "Нет добавленный паспортов";
+            }
+                
+            
 
         }
         public async void AllPasports()

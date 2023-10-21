@@ -14,6 +14,7 @@ namespace car_insurance_mob.Services
     {
         public readonly string baseUrl = "https://www.myprojectcarinsurance.ru/";
         public List<Passport> passports;
+        public string Name;
         public async Task<string> CreatePassportAsync(Passport passport)
         {
             var url = $"{baseUrl}passports/create_passport/";
@@ -130,7 +131,7 @@ namespace car_insurance_mob.Services
         public async Task<Passport> GetActualPassport(ClientService _clientService, EmployeeService _employeeService, int clientId)
         {
             var url = $"{baseUrl}passports/get_actual_passport/{clientId}";
-
+            int l = 0;
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(url);
@@ -145,22 +146,25 @@ namespace car_insurance_mob.Services
                     };
                     // Устанавливаем только ID клиента из JSON
                     var jsonObject = JObject.Parse(jsonContent);
-                    
-                    passport.Client = await _clientService.GetClientAsync(jsonObject.Value<int>("Client"), _employeeService);
-                    passport.Id = jsonObject.Value<int>("id");
-                    passport.IssuedByWhom = jsonObject.Value<string>("IssuedByWhom");
-                    passport.DateOfIssue = jsonObject.Value<DateTime>("DateOfIssue");
-                    passport.DivisionCode = jsonObject.Value<string>("DivisionCode");
-                    passport.Series = jsonObject.Value<string>("Series");
-                    passport.Number = jsonObject.Value<string>("Number");
-                    passport.FIO = jsonObject.Value<string>("FIO");
-                    passport.IsMale = jsonObject.Value<bool>("IsMale");
-                    passport.DateOfBirth = jsonObject.Value<DateTime>("DateOfBirth");
-                    passport.PlaceOfBirth = jsonObject.Value<string>("PlaceOfBirth");
-                    passport.ResidenceAddress = jsonObject.Value<string>("ResidenceAddress");
 
+                    if (jsonObject.Value<string>("FIO") != "")
+                    {
+                        passport.Client = await _clientService.GetClientAsync(jsonObject.Value<int>("Client"), _employeeService);
+                        passport.Id = jsonObject.Value<int>("id");
+                        passport.IssuedByWhom = jsonObject.Value<string>("IssuedByWhom");
+                        passport.DateOfIssue = jsonObject.Value<DateTime>("DateOfIssue");
+                        passport.DivisionCode = jsonObject.Value<string>("DivisionCode");
+                        passport.Series = jsonObject.Value<string>("Series");
+                        passport.Number = jsonObject.Value<string>("Number");
+                        passport.FIO = jsonObject.Value<string>("FIO");
+                        passport.IsMale = jsonObject.Value<bool>("IsMale");
+                        passport.DateOfBirth = jsonObject.Value<DateTime>("DateOfBirth");
+                        passport.PlaceOfBirth = jsonObject.Value<string>("PlaceOfBirth");
+                        passport.ResidenceAddress = jsonObject.Value<string>("ResidenceAddress");
+                        Name = passport.FIO;
 
-                    return passport;
+                    }
+                        return passport;
 
                 }
                 else
@@ -235,27 +239,7 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public static string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
-        //public static Guid idTest = new Guid(str);
-        //public static Passport pass1 = new Passport(idTest, "dfgdfgdfgdf", DateTime.Now, "1111", "1111", "508349","Иванов Иван Иванович",false, DateTime.Now, "Moscow", "Ленина 11");
-        //public static Passport pass2 = new Passport(Guid.NewGuid(), "dfgdfgdfgdf", DateTime.Now, "1111", "2222", "321412", "Иванов Иван Иванович", false, DateTime.Now, "Moscow", "Ленина 11");
-        //public static Passport pass3 = new Passport(Guid.NewGuid(), "dfgdfgdfgdf", DateTime.Now, "1111", "3333", "543729", "Иванов Иван Иванович", false, DateTime.Now, "Moscow", "Ленина 11");
-        //public static Passport pass4 = new Passport(Guid.NewGuid(), "dfgdfgdfgdf", DateTime.Now, "1111", "4444", "371293", "Иванов Иван Иванович", false, DateTime.Now, "Moscow", "Ленина 11");
-        //public List<Passport> passports = new List<Passport> { pass1, pass2, pass3, pass4 };
-        public Passport GetPassport(Guid id)
-        {
-            Passport passport = null;
-            //foreach (Passport i in passports)
-            //{
-            //    //if (i.Id == id)
-            //    //{
-            //    //    passport = i;
-            //    //}
-
-
-            //}
-            return passport;
-        }
+        
         public List<Passport> GetAllPassports()
         {
             return passports;

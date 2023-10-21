@@ -126,6 +126,7 @@ namespace car_insurance_mob.ViewModels
         }
         async void GetPasports()
         {
+    
             Passport passport  = await _passportservice.GetActualPassport(_clientservice, _employeeservice, _clientId);
             await Application.Current.MainPage.Navigation.PushAsync(new PassportActualPage(passport, _clientId));
 

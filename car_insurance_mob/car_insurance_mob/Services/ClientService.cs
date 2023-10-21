@@ -8,6 +8,7 @@ using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using System.Numerics;
 using car_insurance_mob.Services;
+using System.Linq;
 
 namespace car_insurance_mob.Services
 {
@@ -89,9 +90,54 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public async Task<List<Client>> GetAllClientsAsync(EmployeeService _employeeservice)
+        public async Task<List<Client>> GetAllClientsAsync(EmployeeService _employeeservice, PassportService _passportService, ClientService _clientService)
         {
             var url = $"{baseUrl}clients/";
+
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    JArray jsonArray = JArray.Parse(jsonContent);
+                    List<Client> clients = new List<Client>();
+
+                    foreach (JObject jsonClient in jsonArray)
+                    {
+                        Client client = new Client
+                        {
+                            Id = jsonClient.Value<int>("id"),
+                            Phone = jsonClient.Value<string>("Phone"),
+                            Email = jsonClient.Value<string>("Email"),
+                            DateAdd = jsonClient.Value<DateTime>("DateAdd"),
+                            DateDel = jsonClient.Value<DateTime>("DateDel"),
+
+                            
+                        
+                        };
+                        await _passportService.GetActualPassport(_clientService, _employeeservice, client.Id);
+                        client.Name = _passportService.Name;
+
+                        int employeeId = jsonClient.Value<int>("Employee");
+
+                        Employee employee = await _employeeservice.GetEmployeeAsync(employeeId);
+                        client.Employee = employee;
+
+                        clients.Add(client);
+                    }
+                    
+                    return clients;
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
+        public async Task<List<Client>> FilterClientsByNameAsync(EmployeeService _employeeservice, string Name, PassportService _passportService, ClientService _clientService)
+        {
+            var url = $"{baseUrl}clients/filter_clients_by_name/{Name}";
 
             using (var httpClient = new HttpClient())
             {
@@ -121,6 +167,7 @@ namespace car_insurance_mob.Services
 
                         clients.Add(client);
                     }
+                    
                     return clients;
                 }
                 else
@@ -128,6 +175,14 @@ namespace car_insurance_mob.Services
                     throw new Exception($"HTTP request failed with status code {response.StatusCode}");
                 }
             }
+        }
+        public void OrderByClient()
+        {
+            this.clients=  clients.OrderBy(p => p.Name.FirstOrDefault()).ToList();
+        }
+        public void OrderByDescendingClient()
+        {
+            this.clients = clients.OrderByDescending(p => p.Name.FirstOrDefault()).ToList();
         }
         /// GET CLIENTS
 
@@ -173,31 +228,6 @@ namespace car_insurance_mob.Services
         //    }
         //}
         /// 
-        /// GET CLIENTS
-        //public static string str = "92e8c2b2-97d9-4d6d-a9b7-48cb0d039a84";
-        //public static Guid idTest = new Guid(str);
-        public static Client client1 = new Client(1, "88001111111", "email1@mail.ru", DateTime.Now, DateTime.Now);
-        public static Client client2 = new Client(2, "88002222222", "email2@mail.ru", DateTime.Now, DateTime.Now);
-        public static Client client3 = new Client(3, "88003333333", "email3@mail.ru", DateTime.Now, DateTime.Now);
-        public static Client client4 = new Client(4, "88004444444", "email4@mail.ru", DateTime.Now, DateTime.Now);
-        //public List<Client> clients = new List<Client> { client1, client2, client3, client4 };
-        public Client GetClient(BigInteger id)
-        {
-            Client client = null;
-            foreach (Client i in clients)
-            {
-                if (i.Id == id)
-                {
-                    client = i;
-                }
 
-
-            }
-            return client;
-        }
-        //public List<Client> GetAllClients()
-        //{
-        //    return clients;
-        //}
     }
 }

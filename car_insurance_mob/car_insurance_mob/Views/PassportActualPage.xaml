@@ -20,7 +20,14 @@
 
                 <ScrollView Grid.Row="0">
                     <StackLayout  Spacing="8">
-                        
+                        <StackLayout Orientation="Horizontal"  Margin="0,5">
+                            <Label Text="{Binding Error}"
+                               Margin="50,0,0,0"
+                               FontSize="Medium"
+                               
+                               TextColor="Red"/>
+
+                        </StackLayout>
                         <StackLayout Orientation="Horizontal"  Margin="0,5">
                             <Label Text="Id:" FontSize="16" WidthRequest="100" VerticalTextAlignment="Center" FontAttributes="Bold" />
                             <Label Text="{Binding Id}" FontSize="16" VerticalTextAlignment="Center" Margin="50,0,0,0"/>

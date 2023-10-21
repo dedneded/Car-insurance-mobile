@@ -14,9 +14,9 @@
             <StackLayout>
                 <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Фильтр" Command="{Binding ApplyFiltersCommand}"/>
                 <StackLayout x:Name="filterContainer" IsVisible="{Binding IsFilterVisible}">
-                    <Entry Placeholder="ФИО" x:Name="fullNameEntry"/>
-                    <Entry Placeholder="Телефон" x:Name="phoneEntry"/>
-                    <Entry Placeholder="Почта" x:Name="emailEntry"/>
+                    <Entry Placeholder="ФИО" x:Name="fullNameEntry" Text="{Binding fullNameFilter}"/>
+                    <Entry Placeholder="Телефон" x:Name="phoneEntry" Text="{Binding phoneFilter}"/>
+                    <Entry Placeholder="Почта" x:Name="emailEntry" Text="{Binding emailFilter}"/>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -26,8 +26,8 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" />
-                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                        <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" Command="{Binding FiltersCommand}"/>
+                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand" Command="{Binding DropFiltersCommand}"/>
                     </Grid>
                 </StackLayout>
             </StackLayout>
@@ -57,21 +57,21 @@
 
 
                                 <Label Grid.Row="0"
-                                   Text="{Binding Email}"
+                                   Text="{Binding Name}"
                                    FontSize="Medium"
                                    Margin="4"
                                    FontAttributes="Bold" />
 
-                                <StackLayout Orientation="Horizontal"
-                                         Grid.Row="1"
-                                         Margin="4"
-                                         Padding="2">
+                                
+                                <Label Grid.Row="1"
+                                   Text="{Binding Email}"
+                                   Margin="4"
+                                   FontSize="Small" />
 
-                                    <Label Text="{Binding Phone}"
-                                       FontSize="Small" />
-
-
-                                </StackLayout>
+                                <Label Grid.Row="2"
+                                   Text="{Binding Phone}"
+                                   Margin="4"
+                                   FontSize="Small" />
                             </Grid>
 
                         </ViewCell>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using car_insurance_mob.Models;
+using car_insurance_mob.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,9 +13,10 @@ namespace car_insurance_mob.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ClientsListPage : ContentPage
     {
-        public ClientsListPage()
+        public ClientsListPage(string sortIcon = "⇓⇑")
         {
             InitializeComponent();
+            (this.BindingContext as ClientsListViewModel).SortIcon = sortIcon;
         }
         private async void OnClientTapped(object sender, ItemTappedEventArgs e)
         {
