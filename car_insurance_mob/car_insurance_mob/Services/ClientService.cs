@@ -135,9 +135,9 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public async Task<List<Client>> FilterClientsByNameAsync(EmployeeService _employeeservice, string Name, PassportService _passportService, ClientService _clientService)
+        public async Task<List<Client>> FilterClientsAsync(EmployeeService _employeeservice, PassportService _passportService, ClientService _clientService, string Email, string Phone)
         {
-            var url = $"{baseUrl}clients/filter_clients_by_name/{Name}";
+            var url = $"{baseUrl}clients/filter_clients/?email={Email}&phone={Phone}";
 
             using (var httpClient = new HttpClient())
             {
@@ -159,7 +159,8 @@ namespace car_insurance_mob.Services
                             DateAdd = jsonClient.Value<DateTime>("DateAdd"),
                             DateDel = jsonClient.Value<DateTime>("DateDel"),
                         };
-
+                        await _passportService.GetActualPassport(_clientService, _employeeservice, client.Id);
+                        client.Name = _passportService.Name;
                         int employeeId = jsonClient.Value<int>("Employee");
 
                         Employee employee = await _employeeservice.GetEmployeeAsync(employeeId);
@@ -178,56 +179,13 @@ namespace car_insurance_mob.Services
         }
         public void OrderByClient()
         {
-            this.clients=  clients.OrderBy(p => p.Name.FirstOrDefault()).ToList();
+            this.clients= clients.OrderBy(p => p.Name.FirstOrDefault()).ToList();
         }
         public void OrderByDescendingClient()
         {
             this.clients = clients.OrderByDescending(p => p.Name.FirstOrDefault()).ToList();
         }
-        /// GET CLIENTS
-
-        //public static async Task<List<Client>> GetAllClientsAsync()
-        //{
-        //    var url = $"{baseUrl}clients/";
-
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        var response = await httpClient.GetAsync(url);
-
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var jsonContent = await response.Content.ReadAsStringAsync();
-        //            //var clients = JsonConvert.DeserializeObject<List<Client>>(jsonContent);
-        //            JArray jsonArray = JArray.Parse(jsonContent);
-        //            List<Client> clients = new List<Client>();
-
-        //            foreach (JObject jsonClient in jsonArray)
-        //            {
-        //                Client client = new Client
-        //                {
-        //                    Id = jsonClient.Value<BigInteger>("id"),
-        //                    Phone = jsonClient.Value<string>("Phone"),
-        //                    Email = jsonClient.Value<string>("Email"),
-        //                    DateAdd = jsonClient.Value<DateTime>("DateAdd"),
-        //                    DateDel = jsonClient.Value<DateTime>("DateDel"),
-        //                };
-
-        //                int employeeId = jsonClient.Value<int>("Employee");
-
-        //                Employee employee = await EmployeeService.GetEmployeeAsync(employeeId);
-        //                client.Employee = employee;
-
-        //                clients.Add(client);
-        //            }
-        //            return clients;
-        //        }
-        //        else
-        //        {
-        //            throw new Exception($"HTTP request failed with status code {response.StatusCode}");
-        //        }
-        //    }
-        //}
-        /// 
+       
 
     }
 }

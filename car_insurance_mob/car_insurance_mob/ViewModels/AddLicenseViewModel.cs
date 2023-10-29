@@ -110,7 +110,7 @@ namespace car_insurance_mob.ViewModels
             license.ExpirationDate = ExpirationDate;
             license.TransmissionType = TransmissionType;
             await _licenseService.CreateLicenseAsync(license);
-            List<License> licenses = await _licenseService.GetAllLicensesAsync(_clientService, _employeeService);
+            List<License> licenses = await _licenseService.GetAllLicensesAsync(_clientService, _employeeService, clientId);
             _licenseService.licenses = licenses;
             await Application.Current.MainPage.Navigation.PushAsync(new LicensesListPage());
         }

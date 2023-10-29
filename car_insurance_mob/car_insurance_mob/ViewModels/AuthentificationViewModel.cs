@@ -69,7 +69,7 @@ namespace car_insurance_mob.ViewModels
             {
                 currentuser = _employeeService.GetStateUser();
                 List<Client> clients = await _clientService.GetAllClientsAsync(_employeeService, _passportService, _clientService);
-                _clientService.clients = clients.OrderBy(p => p.Name.FirstOrDefault()).ToList(); ;
+                _clientService.clients = clients.OrderBy(p => p.Name.FirstOrDefault()).ToList();
                 
                 await Application.Current.MainPage.Navigation.PushAsync(new ClientsListPage());
 

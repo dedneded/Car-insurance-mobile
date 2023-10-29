@@ -173,7 +173,7 @@ namespace car_insurance_mob.ViewModels
             }
             else
             {
-                Error = "Нет добавленный паспортов";
+                Error = "Нет добавленных паспортов";
             }
                 
             
@@ -181,9 +181,9 @@ namespace car_insurance_mob.ViewModels
         }
         public async void AllPasports()
         {
-            List<Passport> passports = await _passportservice.GetAllPassportsAsync(_clientService, _employeeService);
+            List<Passport> passports = await _passportservice.GetAllPassportsAsync(_clientService, _employeeService, _clientId);
             _passportservice.passports = passports;
-            await Application.Current.MainPage.Navigation.PushAsync(new PassportsListPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new PassportsListPage("",_clientId));
 
         }
 

@@ -155,7 +155,7 @@ namespace car_insurance_mob.ViewModels
             passport.PlaceOfBirth = PlaceOfBirth;
             passport.ResidenceAddress = ResidenceAddress;
             await _passportService.CreatePassportAsync(passport);
-            List<Passport> passports = await _passportService.GetAllPassportsAsync(_clientService, _employeeService);
+            List<Passport> passports = await _passportService.GetAllPassportsAsync(_clientService, _employeeService, clientId);
             _passportService.passports = passports;
             await Application.Current.MainPage.Navigation.PushAsync(new PassportsListPage());
         }

@@ -257,14 +257,14 @@ namespace car_insurance_mob.ViewModels
             _clientService = clientService;
             _employeeService = employeeService;
             TakePhotoCommand = new Command(TakePhoto);
-            SaveCarCommand = new Command(SaveLicense);
+            SaveCarCommand = new Command(SaveCar);
         }
         public void FillId(int clientId)
         {
             _clientId = clientId;
         }
         private void TakePhoto() { }
-        private async void SaveLicense()
+        private async void SaveCar()
         {
             Car car = new Car();
             car.Client = await _clientService.GetClientAsync(_clientId, _employeeService);
@@ -291,7 +291,7 @@ namespace car_insurance_mob.ViewModels
             car.NameOwner = NameOwner;
             car.DateOfIssue = DateOfIssue;
             await _carService.CreateCarAsync(car);
-            List<Car> cars = await _carService.GetAllCarsAsync(_clientService, _employeeService);
+            List<Car> cars = await _carService.GetAllCarsAsync(_clientService, _employeeService, _clientId);
             _carService.cars = cars;
             await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage(_clientId));
 

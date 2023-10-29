@@ -173,10 +173,10 @@ namespace car_insurance_mob.Services
                 }
             }
         }
-        public async Task<List<Passport>> GetAllPassportsAsync(ClientService clientService, EmployeeService employeeService)
+        public async Task<List<Passport>> GetAllPassportsAsync(ClientService clientService, EmployeeService employeeService, int ClientId)
         {
-            var url = $"{baseUrl}passports/";
-
+            var url = $"{baseUrl}passports/{ClientId}";
+            List<Passport> passports_loc = new List<Passport>();
             using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.GetAsync(url);
@@ -210,10 +210,60 @@ namespace car_insurance_mob.Services
 
                         Client client = await clientService.GetClientAsync(clientId, employeeService);
                         passport.Client = client;
-
-                        passports.Add(passport);
+                        passports_loc.Add(passport);
+                        
                     }
-                    return passports;
+                    this.passports = passports_loc;
+                    return passports_loc;
+                }
+                else
+                {
+                    throw new Exception($"HTTP request failed with status code {response.StatusCode}");
+                }
+            }
+        }
+        public async Task<List<Passport>> GetAllPassportsDescAsync(ClientService clientService, EmployeeService employeeService, int ClientId)
+        {
+            var url = $"{baseUrl}passports/get_all_passports_desc/{ClientId}";
+            List<Passport> passports_loc = new List<Passport>();
+            using (var httpClient = new HttpClient())
+            {
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonContent = await response.Content.ReadAsStringAsync();
+                    JArray jsonArray = JArray.Parse(jsonContent);
+                    List<Passport> passports = new List<Passport>();
+
+                    foreach (JObject jsonClient in jsonArray)
+                    {
+                        Passport passport = new Passport
+                        {
+                            Id = jsonClient.Value<int>("id"),
+                            IssuedByWhom = jsonClient.Value<string>("IssuedByWhom"),
+                            DateOfIssue = jsonClient.Value<DateTime>("DateOfIssue"),
+                            DivisionCode = jsonClient.Value<string>("DivisionCode"),
+                            Series = jsonClient.Value<string>("Series"),
+                            Number = jsonClient.Value<string>("Number"),
+                            FIO = jsonClient.Value<string>("FIO"),
+                            IsMale = jsonClient.Value<bool>("IsMale"),
+                            DateOfBirth = jsonClient.Value<DateTime>("DateOfBirth"),
+                            PlaceOfBirth = jsonClient.Value<string>("PlaceOfBirth"),
+                            ResidenceAddress = jsonClient.Value<string>("ResidenceAddress"),
+
+
+                        };
+
+                        int clientId = jsonClient.Value<int>("Client");
+
+                        Client client = await clientService.GetClientAsync(clientId, employeeService);
+                        passport.Client = client;
+                        passports_loc.Add(passport);
+
+                    }
+                    this.passports = passports_loc;
+                    return passports_loc;
                 }
                 else
                 {
@@ -242,7 +292,7 @@ namespace car_insurance_mob.Services
         
         public List<Passport> GetAllPassports()
         {
-            return passports;
+            return this.passports;
         }
         public bool AddPassport(Passport passport)
         {

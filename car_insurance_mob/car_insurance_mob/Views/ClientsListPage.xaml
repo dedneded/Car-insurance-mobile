@@ -14,9 +14,9 @@
             <StackLayout>
                 <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Фильтр" Command="{Binding ApplyFiltersCommand}"/>
                 <StackLayout x:Name="filterContainer" IsVisible="{Binding IsFilterVisible}">
-                    <Entry Placeholder="ФИО" x:Name="fullNameEntry" Text="{Binding fullNameFilter}"/>
-                    <Entry Placeholder="Телефон" x:Name="phoneEntry" Text="{Binding phoneFilter}"/>
-                    <Entry Placeholder="Почта" x:Name="emailEntry" Text="{Binding emailFilter}"/>
+                    <Entry Placeholder="ФИО"  Text="{Binding FullNameFilter}"/>
+                    <Entry Placeholder="Телефон"  Text="{Binding PhoneFilter}"/>
+                    <Entry Placeholder="Почта" Text="{Binding EmailFilter}"/>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -26,8 +26,8 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" Command="{Binding FiltersCommand}"/>
-                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand" Command="{Binding DropFiltersCommand}"/>
+                        <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" Command="{Binding DropFiltersCommand}"/>
+                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand" Command="{Binding FiltersCommand}"/>
                     </Grid>
                 </StackLayout>
             </StackLayout>

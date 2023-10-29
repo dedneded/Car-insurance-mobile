@@ -1,4 +1,5 @@
 ﻿using car_insurance_mob.Models;
+using car_insurance_mob.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,18 @@ namespace car_insurance_mob.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class LicensesListPage : ContentPage
 	{
-		public LicensesListPage ()
+		public LicensesListPage (string sortIcon = "⇓⇑", int clientId=0)
 		{
+
 			InitializeComponent ();
-		}
+            if (sortIcon == "")
+            {
+                sortIcon = "⇓⇑";
+            }
+               
+            (this.BindingContext as LicensesListViewModel).SortIcon = sortIcon;
+            (this.BindingContext as LicensesListViewModel).ClientId = clientId;
+        }
         private async void OnLicenseTapped(object sender, ItemTappedEventArgs e)
         {
 

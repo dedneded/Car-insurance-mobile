@@ -5,12 +5,23 @@ using System.Text;
 using System.Windows.Input;
 using car_insurance_mob.Models;
 using car_insurance_mob.Services;
+using car_insurance_mob.Views;
 using Xamarin.Forms;
 
 namespace car_insurance_mob.ViewModels
 {
     class LicensesListViewModel : BaseViewModel
     {
+        private int clientId;
+        public int ClientId
+        {
+            get { return clientId; }
+            set
+            {
+                clientId = value;
+                OnPropertyChanged();
+            }
+        }
         private ObservableCollection<License> allLicenses;
         public ObservableCollection<License> AllLicenses
         {
@@ -20,7 +31,6 @@ namespace car_insurance_mob.ViewModels
                 allLicenses = value;
             }
         }
-        private bool ascendingSort = true; // Начальное направление сортировки
         private string sortIcon;
         public string SortIcon
         {
@@ -34,19 +44,44 @@ namespace car_insurance_mob.ViewModels
 
         public ICommand ApplySortCommand { get; private set; }
         private LicenseService _licenseService;
-        public LicensesListViewModel(LicenseService licenseService)
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        public LicensesListViewModel(LicenseService licenseService, ClientService clientService, EmployeeService employeeService)
         {
             _licenseService = licenseService;
+            _clientService = clientService;
+            _employeeService = employeeService;
+
             List<License> licenses = _licenseService.GetAllLicenses();
             AllLicenses = new ObservableCollection<License>(licenses);
             SortIcon = "⇑⇓";
             ApplySortCommand = new Command(ApplySort);
         }
-        private void ApplySort()
+        async void ApplySort()
         {
-            ascendingSort = !ascendingSort;
-            // Изменение иконки в зависимости от направления сортировки
-            SortIcon = ascendingSort ? "⇑⇓" : "⇓⇑";
+            bool check = false;
+            if (SortIcon == "⇑⇓")
+            {
+                List<License> licenses = await _licenseService.GetAllLicensesAsync(_clientService, _employeeService, clientId);
+                AllLicenses.Clear();
+                foreach (var license in licenses)
+                {
+                    AllLicenses.Add(license); // Добавляем новые элементы
+                }
+                SortIcon = "⇓⇑";
+                check = true;
+            }
+
+            if (SortIcon == "⇓⇑" && !check)
+            {
+                List<License> licenses = await _licenseService.GetAllLicensesDescAsync(_clientService, _employeeService, clientId);
+                AllLicenses.Clear();
+                foreach (var license in licenses)
+                {
+                    AllLicenses.Add(license); // Добавляем новые элементы
+                }
+                SortIcon = "⇑⇓";
+            }
         }
     }
 }

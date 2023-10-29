@@ -1,5 +1,6 @@
 ﻿using car_insurance_mob.Models;
 using car_insurance_mob.Services;
+using car_insurance_mob.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,10 @@ namespace car_insurance_mob.ViewModels
 {
     public class PassportsListViewModel : BaseViewModel
     {
+        private PassportService _passportservice;
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+        
         private ObservableCollection<Passport> allPassports;
         public ObservableCollection<Passport> AllPassports
         {
@@ -20,9 +25,7 @@ namespace car_insurance_mob.ViewModels
                 allPassports = value;
             }
         }
-        private PassportService _passportservice;
 
-        private bool ascendingSort = true; // Начальное направление сортировки
         private string sortIcon;
         public string SortIcon
         {
@@ -33,23 +36,54 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-      
+        private int clientId;
+        public int ClientId
+        {
+            get { return clientId; }
+            set
+            {
+                clientId = value;
+                OnPropertyChanged();
+            }
+        }
         public ICommand ApplySortCommand { get; private set; }
 
-        public PassportsListViewModel(PassportService passportservice)
+        public PassportsListViewModel(PassportService passportservice, ClientService clientService, EmployeeService employeeService)
         {
             _passportservice = passportservice;
+            _clientService = clientService;
+            _employeeService = employeeService;
             List<Passport> passports = _passportservice.GetAllPassports();
             AllPassports = new ObservableCollection<Passport>(passports);
             SortIcon = "⇑⇓";
             ApplySortCommand = new Command(ApplySort);
         }
 
-        private void ApplySort()
+        async void ApplySort()
         {
-            ascendingSort = !ascendingSort;
-            // Изменение иконки в зависимости от направления сортировки
-            SortIcon = ascendingSort ? "⇑⇓" : "⇓⇑";
+            bool check = false;
+            if (SortIcon == "⇑⇓")
+            {
+                List<Passport> passports = await _passportservice.GetAllPassportsAsync(_clientService, _employeeService, clientId);
+                AllPassports.Clear();
+                foreach (var passport in passports)
+                {
+                    AllPassports.Add(passport); // Добавляем новые элементы
+                }
+                SortIcon = "⇓⇑";
+                check = true;
+            }
+
+            if (SortIcon == "⇓⇑" && !check)
+            {
+                List<Passport> passports = await _passportservice.GetAllPassportsDescAsync(_clientService, _employeeService, clientId);
+                AllPassports.Clear();
+                foreach (var passport in passports)
+                {
+                    AllPassports.Add(passport); // Добавляем новые элементы
+                }
+                SortIcon = "⇑⇓";
+            }
         }
     }
 }

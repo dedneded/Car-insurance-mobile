@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using static Xamarin.Essentials.Permissions;
+using System.Linq;
+using System.ComponentModel;
 
 namespace car_insurance_mob.ViewModels
 {
@@ -18,8 +20,6 @@ namespace car_insurance_mob.ViewModels
         private ClientService _clientservice;
         private EmployeeService _employeeservice;
         private PassportService _passportservice;
-
-
 
         private string fullNameFilter;
         public string FullNameFilter
@@ -51,7 +51,6 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-        private bool ascendingSort = false; // Начальное направление сортировки
         private string sortIcon;
         public string SortIcon
         {
@@ -115,16 +114,40 @@ namespace car_insurance_mob.ViewModels
         }
         async void Filters()
         {
-            await _clientservice.FilterClientsByNameAsync(_employeeservice, fullNameFilter, _passportservice, _clientservice);
-            AllClients = new ObservableCollection<Client>(_clientservice.clients);
+            if (EmailFilter != null && PhoneFilter != null)
+            {
+                _clientservice.clients = await _clientservice.FilterClientsAsync(_employeeservice, _passportservice, _clientservice, EmailFilter, PhoneFilter);
 
+            }
+            AllClients.Clear();
+            if (fullNameFilter != null )
+            {
+                List<Client> filteredClients = _clientservice.clients.Where(c => c.Name != null && c.Name.IndexOf(fullNameFilter, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                foreach (var client in filteredClients)
+                {
+                    AllClients.Add(client); // Добавляем новые элементы
+                }
+            }
+            else
+            {
+                foreach (var client in _clientservice.clients)
+                {
+                    AllClients.Add(client); // Добавляем новые элементы
+                }
+            }
+            
         }
-        private void DropFilters()
+        async void DropFilters()
         {
-
-            AllClients = new ObservableCollection<Client>(_clientservice.clients);
-
-
+            var clients = await _clientservice.GetAllClientsAsync(_employeeservice, _passportservice, _clientservice);
+            AllClients.Clear();
+            foreach (var client in clients)
+            {
+                AllClients.Add(client); // Добавляем новые элементы
+            }
+            FullNameFilter = "";
+            PhoneFilter = "";
+            EmailFilter = "";
         }
         async void ApplySort()
         {

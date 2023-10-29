@@ -12,7 +12,7 @@
             <StackLayout>
                 <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Фильтр" Command="{Binding ApplyFiltersCommand}"/>
                 <StackLayout x:Name="filterContainer" IsVisible="{Binding IsFilterVisible}">
-                    <Entry Placeholder="Регистрационный знак" x:Name="registrationNumber"/>
+                    <Entry Placeholder="Регистрационный знак" Text="{Binding RegistrationNum}"/>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -22,21 +22,15 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" />
-                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand"/>
+                        <Button BackgroundColor="#fcb6be" BorderColor="White" BorderWidth="1" Text="Сбросить" Grid.Column="0" HorizontalOptions="FillAndExpand" Command="{Binding DropFiltersCommand}"/>
+                        <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" Text="Применить" Grid.Column="1" HorizontalOptions="FillAndExpand" Command="{Binding FiltersCommand}"/>
                     </Grid>
                 </StackLayout>
 
 
 
             </StackLayout>
-            <StackLayout>
-                <Button BackgroundColor="#bee0fc" BorderColor="White" BorderWidth="1" FontSize="22" Command="{Binding ApplySortCommand}"
-                    Text="{Binding SortIcon, StringFormat='{0} Дата добавления'}">
-
-                </Button>
-
-            </StackLayout>
+            
             <ListView ItemsSource="{Binding AllCars}"
                   HasUnevenRows="True"
                   BackgroundColor="#f5f5f5"

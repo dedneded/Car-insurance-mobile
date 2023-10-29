@@ -16,7 +16,16 @@ namespace car_insurance_mob.ViewModels
         private LicenseService _licenseService;
         private ClientService _clientService;
         private EmployeeService _employeeService;
-
+        private string error;
+        public string Error
+        {
+            get { return error; }
+            set
+            {
+                error = value;
+                OnPropertyChanged();
+            }
+        }
         private int id;
         public int Id
         {
@@ -116,20 +125,29 @@ namespace car_insurance_mob.ViewModels
         public void FillInfo(License license, int clientId)
         {
             this._clientId = clientId;
-            Id = license.Id;
-            DateOfIssue = license.DateOfIssue;
-            ExpirationDate = license.ExpirationDate;
-            CodeGIBDD = license.CodeGIBDD;
-            Series = license.Series;
-            Number = license.Number;
-            TransmissionType = license.TransmissionType;
-            VehicleCategories = license.VehicleCategories;
+
+            if (license.Id != 0)
+            {
+                Id = license.Id;
+                DateOfIssue = license.DateOfIssue;
+                ExpirationDate = license.ExpirationDate;
+                CodeGIBDD = license.CodeGIBDD;
+                Series = license.Series;
+                Number = license.Number;
+                TransmissionType = license.TransmissionType;
+                VehicleCategories = license.VehicleCategories;
+            }
+            else
+            {
+                Error = "Нет добавленных автомобилей";
+            }
+            
         }
         public async void AllLicenses()
         {
-            List<License> licenses = await _licenseService.GetAllLicensesAsync(_clientService, _employeeService);
+            List<License> licenses = await _licenseService.GetAllLicensesAsync(_clientService, _employeeService, _clientId);
             _licenseService.licenses = licenses;
-            await Application.Current.MainPage.Navigation.PushAsync(new LicensesListPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new LicensesListPage("",_clientId));
         }
     }
 }

@@ -13,8 +13,11 @@ namespace car_insurance_mob.ViewModels
     class CarsListViewModel : BaseViewModel
     {
         int Clicked = 0;
-        int _clientId;
+        private int _clientId;
         private CarService _carService;
+        private ClientService _clientService;
+        private EmployeeService _employeeService;
+
         private ObservableCollection<Car> allCars;
         public ObservableCollection<Car> AllCars
         {
@@ -34,6 +37,17 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
+       
+        private string registrationNum;
+        public string RegistrationNum
+        {
+            get { return registrationNum; }
+            set
+            {
+                registrationNum = value;
+                OnPropertyChanged();
+            }
+        }
         public ICommand ApplyFiltersCommand { get; private set; }
         private bool ascendingSort = true; // Начальное направление сортировки
         private string sortIcon;
@@ -46,21 +60,24 @@ namespace car_insurance_mob.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ICommand ApplySortCommand { get; private set; }
         public ICommand AddCarCommand { get; private set; }
+        public ICommand FiltersCommand { get; private set; }
+        public ICommand DropFiltersCommand { get; private set; }
 
-        public CarsListViewModel(CarService carService)
+        public CarsListViewModel(CarService carService, ClientService clientService, EmployeeService employeeService)
         {
             _carService = carService;
+            _clientService = clientService;
+            _employeeService = employeeService;
             List<Car> cars = _carService.GetAllCars();
             AllCars = new ObservableCollection<Car>(cars);
             SortIcon = "⇑⇓";
             ApplyFiltersCommand = new Command(ApplyFilters);
-            ApplySortCommand = new Command(ApplySort);
             AddCarCommand = new Command(async () => await Application.Current.MainPage.Navigation.PushAsync(new AddCarPage(_clientId)));
-
+            FiltersCommand = new Command(Filters);
+            DropFiltersCommand = new Command(DropFilters);
         }
-       
+
         private void ApplyFilters()
         {
             Clicked += 1;
@@ -74,15 +91,35 @@ namespace car_insurance_mob.ViewModels
             }
 
         }
-        private void ApplySort()
-        {
-            ascendingSort = !ascendingSort;
-            // Изменение иконки в зависимости от направления сортировки
-            SortIcon = ascendingSort ? "⇑⇓" : "⇓⇑";
-        }
+      
         public void FillId(int clientId)
         {
             _clientId = clientId;
+        }
+        async void Filters()
+        {
+            if (RegistrationNum != null)
+            {
+                _carService.cars = await _carService.FilterCarsAsync(_clientService, _employeeService, registrationNum);
+                AllCars.Clear();
+                foreach (var car in _carService.cars)
+                {
+                    AllCars.Add(car); // Добавляем новые элементы
+                }
+            }
+            
+            
+        }
+        async void DropFilters()
+        {
+            var cars = await _carService.GetAllCarsAsync(_clientService, _employeeService, _clientId);
+            AllCars.Clear();
+            foreach (var car in cars)
+            {
+                AllCars.Add(car); // Добавляем новые элементы
+            }
+            RegistrationNum = "";
+           
         }
     }
 }

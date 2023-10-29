@@ -141,7 +141,7 @@ namespace car_insurance_mob.ViewModels
         }
         public async void GetCars()
         {
-            List<Car> cars = await _carservice.GetAllCarsAsync(_clientservice, _employeeservice);
+            List<Car> cars = await _carservice.GetAllCarsAsync(_clientservice, _employeeservice, _clientId);
             _carservice.cars = cars;
             await Application.Current.MainPage.Navigation.PushAsync(new CarsListPage(_clientId));
         }

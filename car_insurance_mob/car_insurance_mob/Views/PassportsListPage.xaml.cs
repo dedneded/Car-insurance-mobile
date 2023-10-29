@@ -14,9 +14,16 @@ namespace car_insurance_mob.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PassportsListPage : ContentPage
     {
-        public PassportsListPage()
+        public PassportsListPage(string sortIcon = "⇓⇑", int clientId = 0)
         {
             InitializeComponent();
+            if (sortIcon == "")
+            {
+                sortIcon = "⇓⇑";
+            }
+
+            (this.BindingContext as PassportsListViewModel).SortIcon = sortIcon;
+            (this.BindingContext as PassportsListViewModel).ClientId = clientId;
         }
         private async void OnPassportTapped(object sender, ItemTappedEventArgs e)
         {
